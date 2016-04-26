@@ -9,9 +9,9 @@ GIT
 
 GIT
   remote: ssh://git@git.mytm.tk:35222/yamax2/lib_support.git
-  revision: 23a48e68e74b88f354cf9a0255f42612b5a05cdf
+  revision: 49dc77f0e3fb8b27fc75a31fe1f866d98141cfbc
   specs:
-    lib_support (0.2.11)
+    lib_support (0.2.13)
       unicode
 
 GEM
