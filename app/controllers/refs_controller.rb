@@ -1,5 +1,5 @@
 class RefsController < ApplicationController
-  include RefsControllerModule
+  include LibSupport::RefsController
 
   def permission_params
     super.merge :user => current_user

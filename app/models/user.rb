@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  include BaseObject
+  include LibSupport::BaseObject
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable, :recoverable, :validatable, :registerable

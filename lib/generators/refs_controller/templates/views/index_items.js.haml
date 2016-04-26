@@ -1,5 +1,0 @@
-libSupport.indexList(
-'#{controller.resource.sm_name}',
-'#{@items.map{|item| j(render partial: 'item', :locals => { :item => item }) }.join.html_safe}',
-'#{j(paginate @items, :remote => true).html_safe}'
-);

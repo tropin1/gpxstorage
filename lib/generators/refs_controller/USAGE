@@ -1,8 +1,0 @@
-Description:
-    Generates base controller, views and locale files
-
-Example:
-    rails g refs_controller Name
-
-    This will create:
-        app/controllers/name_controller.rb
