@@ -1,0 +1,11 @@
+ru:
+  lib_support:
+      refs:
+        apply: "Принять"
+        cancel: "Отмена"
+        edit: "Изменить"
+        errors: "Ошибок"
+        new: "Добавить"
+        remove: "Удалить"
+        remove_confirm: "Следующие %{name} будут удалены"
+
