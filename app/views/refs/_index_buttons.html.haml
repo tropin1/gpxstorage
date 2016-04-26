@@ -1,6 +1,6 @@
 .row
   .col-md-12
     - if controller.ref_action?(:new)
-      = link_to 'new', { :controller => controller_name, :action => 'new' }, :class => 'btn btn-sm btn-success'
+      = link_to t('lib_support.refs.new'), { :controller => controller_name, :action => 'new' }, :class => 'btn btn-sm btn-success'
     - if controller.ref_action?(:remove)
-      %button.btn.btn-sm.btn-danger{"data-action" => "remove", "data-type" => name, :disabled => "disabled"}= 'remove'
+      %button.btn.btn-sm.btn-danger{'data-action' => 'remove', 'data-type' => name, :disabled => 'disabled'}= t('lib_support.refs.remove')

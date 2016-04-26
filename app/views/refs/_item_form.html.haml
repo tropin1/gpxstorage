@@ -1,7 +1,7 @@
 - if @item.errors.any?
   .alert.alert-danger
-    %button.close{"aria-hidden" => "true", "data-dismiss" => "alert", :type => "button"} ×
-    %strong= "errors: #{@item.errors.count}"
+    %button.close{'aria-hidden' => true, 'data-dismiss' => 'alert', :type => 'button'} ×
+    %strong= "#{t('lib_support.refs.errors')}: #{@item.errors.count}"
     %ul
       - @item.errors.full_messages.each do |x|
         %li= x
@@ -10,6 +10,6 @@
     = render partial: 'item_form_fields', :locals => { :form => f }
     .form-group
       .col-md-offset-2.col-md-8
-        = f.submit 'apply', :class => 'btn btn-success'
+        = f.submit t('lib_support.refs.apply'), :class => 'btn btn-success'
       .col-md-2
-        = link_to 'cancel', { :controller => @item.class.to_s.tableize, :action => 'index' }, :class => 'btn btn-default mx-btn-right'
+        = link_to t('lib_support.refs.cancel'), { :controller => @item.class.to_s.tableize, :action => 'index' }, :class => 'btn btn-default mx-btn-right'

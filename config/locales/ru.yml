@@ -1,2 +1,13 @@
 ru:
   title: "GPX Storage"
+  activerecord:
+     attributes:
+        user:
+            email: "email"
+            name: "Имя"
+     models:
+        user:
+          one: "Пользователь"
+          few: "Пользователи"
+          many: "Пользователи"
+          other: "Пользователи"

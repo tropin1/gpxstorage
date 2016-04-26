@@ -2,14 +2,14 @@
 = render partial: 'index_buttons', :locals => { :name => name }
 .row
   .col-md-12
-    %div{"data-role" => "paginator", "data-type" => name, :id => "#{name}_list_paginator"}
+    %div{'data-role' => 'paginator', 'data-type' => name, :id => "#{name}_list_paginator"}
 .row
   .col-md-12
-    %table.table.table-hover.lib-support-list{"data-role" => "list", "data-type" => name, "data-type-plural" => "#{controller.resource.pl_name}", :id => "#{name}_list"}
+    %table.table.table-hover.lib-support-list{'data-role' => 'list', 'data-type' => name, 'data-type-plural' => "#{controller.resource.pl_name}", :id => "#{name}_list"}
       %thead
         %tr
           %th.mx-selector-th
-            %input{"data-type" => name, :type => "checkbox"}/
+            %input{'data-type' => name, :type => 'checkbox'}/
           - controller.resource.ref_columns.each do |column|
             %th= controller.resource.human_attribute_name(column)
           %th

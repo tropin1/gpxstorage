@@ -1,0 +1,8 @@
+Description:
+    Generates base controller
+
+Example:
+    rails generate refs Name
+
+    This will create:
+        app/controllers/name_controller.rb

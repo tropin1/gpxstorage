@@ -34,7 +34,7 @@
                   %li.divider
                   %li= link_to 'sign out', destroy_user_session_path, :method => :delete
           %ul.nav.navbar-nav
-            %li= link_to 'users', users_path
+            %li= link_to User.model_name.human(:count => 2), users_path
     .container{:role => "main"}
       .row
         .col-lg-12
