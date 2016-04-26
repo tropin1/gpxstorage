@@ -1,0 +1,28 @@
+class User < ApplicationRecord
+  include BaseObject
+
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable, :recoverable, :validatable, :registerable
+
+  devise      :database_authenticatable, :rememberable, :trackable,
+              :omniauthable, :omniauth_providers => [ :google_oauth2 ]
+
+  validates   :name, :presence => true, :length => { :maximum => 255 }
+  validates   :email, :presence => true, :uniqueness => true
+
+  strip_attributes :only => [ :name, :email ]
+  set_ref_columns  :name, :email
+  set_form_columns :name
+  paginates_per 10
+
+  def self.find_for_google_oauth2(access_token, signed_in_resource = nil)
+    data = access_token.info
+    user = User.where(:provider => access_token.provider, :uid => access_token.uid ).first || \
+           User.where(:email => access_token.info.email).first || \
+           User.new(:password => Devise.friendly_token[0, 20])
+
+    user.update :name => data['name'], :provider => access_token.provider, :email => data['email'], :uid => access_token.uid
+    user
+  end
+
+end
