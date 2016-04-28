@@ -6,6 +6,15 @@
     %td= item.ref_column_value col
   %td.mx-ref-buttons
     - if item.permit_modify?(controller.permission_params)
-      = link_to t('lib_support.refs.edit'), item, :class => 'btn btn-sm btn-default' if controller.ref_action?(:show)
-      = link_to t('lib_support.refs.remove'), '#', :class => 'btn btn-sm btn-danger', :'data-type' => model, :'data-action' => 'remove_single', :'data-id' => item.id if |
-        controller.ref_action?(:remove)                                                                                                               |
+      - if controller.ref_action?(:show)
+        = link_to item, :class => 'btn btn-xs btn-default btn-icon' do
+          %i.fa.fa-pencil-square-o{'title' => t('lib_support.refs.edit')}
+          %span= t('lib_support.refs.edit')
+
+      - if controller.ref_action?(:remove)
+        = link_to '#', :class => 'btn btn-xs btn-danger btn-icon', |
+                       :'data-type' => model,                      |
+                       :'data-action' => 'remove_single',          |
+                       :'data-id' => item.id do
+          %i.fa.fa-trash-o{'title' => t('lib_support.refs.remove')}
+          %span= t('lib_support.refs.remove')

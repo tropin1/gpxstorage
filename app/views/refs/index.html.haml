@@ -1,3 +1,4 @@
+- content_for :title, controller.resource.model_name.human(:count => 2)
 - name = controller.resource.sm_name.to_s
 = render partial: 'index_buttons', :locals => { :name => name }
 .row

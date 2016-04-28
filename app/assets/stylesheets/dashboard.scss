@@ -1,3 +1,20 @@
-// Place all the styles related to the dashboard controller here.
-// They will automatically be included in application.scss.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+#overlay {
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 52px);
+  left: 0;
+  overflow: hidden;
+
+  > video {
+    min-height: 100%;
+    min-width: 100%;
+    position: fixed;
+    opacity: 0.7;
+    filter: sepia(0.5);
+    -webkit-filter: sepia(0.5);
+  }
+
+  .info-block {
+    position: absolute;
+  }
+}

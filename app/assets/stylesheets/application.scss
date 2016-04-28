@@ -12,12 +12,15 @@
  *
  *= require ubuntu_font
  *= require lib_support
+ *= require font-awesome
  *= require_tree .
  *= require_self
  */
 
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
+
+$focus_color: #f9f9f9;
 
 body {
     font-family: 'Ubuntu', sans-serif;
@@ -26,4 +29,60 @@ body {
 .navbar-fixed-top, .navbar-fixed-bottom {
   position: inherit;
   margin-bottom: 0;
+
+  > .container {
+    margin: 0 30px;
+    width: inherit;
+  }
+}
+
+.navbar-toggle .icon-bar {
+  background-color: black;
+}
+
+.page-header {
+  margin: 20px 0 20px;
+}
+
+.btn-icon {
+  > .fa {
+    display: none;
+    font-size: 18px;
+  }
+}
+
+.navbar-header .navbar-toggle {
+  background-color: $focus_color;
+  border-color: $focus_color;
+}
+
+.nav > li > a {
+  &:hover, &:focus {
+    text-decoration: none;
+    background-color: $focus_color;
+  }
+}
+
+.lib-support-list td {
+  white-space: nowrap;
+}
+
+@media (max-width: $screen-xs-max) {
+  .btn-icon {
+    > span {
+      display: none
+    }
+
+    > .fa {
+      display: block;
+    }
+  }
+
+  #overlay { display: none }
+
+  .navbar-fixed-top, .navbar-fixed-bottom {
+     > .container {
+       margin: auto;
+     }
+  }
 }
