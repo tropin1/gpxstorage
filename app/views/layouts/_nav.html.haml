@@ -11,14 +11,15 @@
       %ul.nav.navbar-nav.navbar-right
         %li.dropdown
           - if !user_signed_in?
-            = link_to 'sign in', new_user_session_path
+            = link_to t('sign_in'), new_user_session_path
           - else
             %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
               = current_user.name
               %b.caret
             %ul.dropdown-menu
-              %li= link_to 'profile', user_path(current_user)
+              %li= link_to t('profile'), user_path(current_user)
               %li.divider
-              %li= link_to 'sign out', destroy_user_session_path, :method => :delete
-      %ul.nav.navbar-nav
-        %li= link_to User.model_name.human(:count => 2), users_path
+              %li= link_to t('sign_out'), destroy_user_session_path, :method => :delete
+      - if user_signed_in? && current_user.admin?
+        %ul.nav.navbar-nav
+          %li= link_to User.model_name.human(:count => 2), users_path

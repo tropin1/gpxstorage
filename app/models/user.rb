@@ -12,8 +12,10 @@ class User < ApplicationRecord
 
   strip_attributes :only => [ :name, :email ]
   set_ref_columns  :name, :email
-  set_form_columns :name
+  set_form_columns :name, :admin
   paginates_per 10
+
+  has_many :tracks
 
   def self.find_for_google_oauth2(access_token, signed_in_resource = nil)
     data = access_token.info
@@ -23,6 +25,12 @@ class User < ApplicationRecord
 
     user.update :name => data['name'], :provider => access_token.provider, :email => data['email'], :uid => access_token.uid
     user
+  end
+
+  # can change only yourself unless you're admin
+  def permit_modify?(*opts)
+    user = opts.extract_options!.dup[:user]
+    user && ( user.admin? || user.get_id == get_id)
   end
 
 end

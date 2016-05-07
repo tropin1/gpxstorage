@@ -37,6 +37,8 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.0]
       # oauth
       t.string     :provider, :limit => 100
       t.string     :uid, :limit => 150
+
+      t.boolean    :admin, :null => false, :default => false
     end
 
     add_index :users, :email,                unique: true

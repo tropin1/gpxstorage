@@ -9,7 +9,7 @@ class @GpxSupport extends @LibSupport
             .data('obj', $(@).data('obj'))
             .data('model', $(@).data('type'))
             .on('ajax:error', (xhr, status, error) ->
-                alert JSON.stringify(status, null, 2);
+                alert JSON.stringify(status.responseJSON, null, 2);
                 return;
             ).on('ajax:success', (e, result) ->
                 obj = $(@).data('obj');

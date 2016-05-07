@@ -1,0 +1,13 @@
+- @item.class.form_columns.except(:admin).each do |col|
+  .form-group
+    = form.label col, :class => 'control-label col-md-2'
+    .col-md-10
+      = form.text_field col, :class => 'form-control', :autofocus => col == :name
+      %span.help-block
+.form-group
+  .col-sm-offset-2.col-sm-10
+    .checkbox
+      %label
+        = form.check_box :admin |
+        = User.human_attribute_name(:admin)
+

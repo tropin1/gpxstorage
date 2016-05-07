@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160420090716) do
+ActiveRecord::Schema.define(version: 20160507171000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,10 +23,25 @@ ActiveRecord::Schema.define(version: 20160420090716) do
     t.string   "type",       limit: 50,                                                 null: false
     t.datetime "created_at",            default: -> { "timezone('UTC'::text, now())" }, null: false
     t.datetime "updated_at",            default: -> { "timezone('UTC'::text, now())" }, null: false
+    t.index ["txt_index"], name: "index_objects_on_txt_index", using: :gin
+    t.index ["type"], name: "index_objects_on_type", using: :btree
   end
 
-  add_index "objects", ["txt_index"], name: "index_objects_on_txt_index", using: :gin
-  add_index "objects", ["type"], name: "index_objects_on_type", using: :btree
+  create_table "tracks", id: :integer, default: -> { "nextval('objects_id_seq'::regclass)" }, force: :cascade do |t|
+    t.tsvector "txt_index"
+    t.string   "type",       limit: 50,  default: "Track",                               null: false
+    t.datetime "created_at",             default: -> { "timezone('UTC'::text, now())" }, null: false
+    t.datetime "updated_at",             default: -> { "timezone('UTC'::text, now())" }, null: false
+    t.string   "code",       limit: 52,                                                  null: false
+    t.string   "name",       limit: 255,                                                 null: false
+    t.integer  "user_id"
+    t.text     "descr"
+    t.boolean  "public",                 default: true,                                  null: false
+    t.index ["code"], name: "index_tracks_on_code", unique: true, using: :btree
+    t.index ["txt_index"], name: "index_tracks_on_txt_index", using: :gin
+    t.index ["type"], name: "index_tracks_on_type", using: :btree
+    t.index ["user_id"], name: "index_tracks_on_user_id", using: :btree
+  end
 
   create_table "users", id: :integer, default: -> { "nextval('objects_id_seq'::regclass)" }, force: :cascade do |t|
     t.tsvector "txt_index"
@@ -44,11 +59,12 @@ ActiveRecord::Schema.define(version: 20160420090716) do
     t.inet     "last_sign_in_ip"
     t.string   "provider",            limit: 100
     t.string   "uid",                 limit: 150
+    t.boolean  "admin",                           default: false,                                 null: false
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["name"], name: "index_users_on_name", using: :btree
+    t.index ["txt_index"], name: "index_users_on_txt_index", using: :gin
+    t.index ["type"], name: "index_users_on_type", using: :btree
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["name"], name: "index_users_on_name", using: :btree
-  add_index "users", ["txt_index"], name: "index_users_on_txt_index", using: :gin
-  add_index "users", ["type"], name: "index_users_on_type", using: :btree
-
+  add_foreign_key "tracks", "users", on_update: :cascade, on_delete: :restrict
 end

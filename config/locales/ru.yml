@@ -1,8 +1,12 @@
 ru:
   title: "GPX Storage"
+  profile: "Профиль"
+  sign_out: "Выход"
+  sign_in: "Войти"
   activerecord:
      attributes:
         user:
+            admin: "Администратор"
             email: "email"
             name: "Имя"
      models:
