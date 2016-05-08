@@ -10,7 +10,10 @@ Rails.application.routes.draw do
                 omniauth_callbacks: 'users/omniauth_callbacks'
              }
 
-  ref_resources :users, :except => [:create, :new]
+  ref_resources :tracks
+  ref_resources(:users, :except => [:create, :new]) do
+    ref_resources :tracks, :only => [:index, :index_items]
+  end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 

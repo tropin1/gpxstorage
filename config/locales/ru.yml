@@ -5,11 +5,20 @@ ru:
   sign_in: "Войти"
   activerecord:
      attributes:
+        track:
+            name: "Название"
+            descr: "Описание"
+            public: "Общедоступный"
         user:
             admin: "Администратор"
             email: "email"
             name: "Имя"
      models:
+        track:
+          one: "Трек"
+          few: "Треки"
+          many: "Треки"
+          other: "Треки"
         user:
           one: "Пользователь"
           few: "Пользователи"

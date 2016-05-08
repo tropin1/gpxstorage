@@ -1,5 +1,5 @@
 - model = controller.resource.sm_name.to_s
-%tr{'data-id' => item.id, 'data-type' => model}
+%tr{'data-id' => item.get_id, 'data-type' => model}
   %td
     %input{:type => 'checkbox'}/
   - controller.resource.ref_columns.each do |col|
@@ -15,6 +15,6 @@
         = link_to '#', :class => 'btn btn-xs btn-danger btn-icon', |
                        :'data-type' => model,                      |
                        :'data-action' => 'remove_single',          |
-                       :'data-id' => item.id do
+                       :'data-id' => item.get_id do
           %i.fa.fa-trash-o{'title' => t('lib_support.refs.remove')}
           %span= t('lib_support.refs.remove')

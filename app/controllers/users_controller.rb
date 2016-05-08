@@ -4,10 +4,7 @@ class UsersController < RefsController
 
   before_action :authenticate_user!, :except => [:show]
   before_action(:except => [:show, :update]) do
-    respond_to do |format|
-      format.js { render nothing: true, status: :forbidden }
-      format.html { redirect_to '/' }
-    end unless current_user.admin?
+    redirect_to root_path unless current_user.admin?
   end
 
   protected

@@ -23,3 +23,5 @@
       - if user_signed_in? && current_user.admin?
         %ul.nav.navbar-nav
           %li= link_to User.model_name.human(:count => 2), users_path
+      %ul.nav.navbar-nav
+        %li= link_to Track.model_name.human(:count => 2), tracks_path
