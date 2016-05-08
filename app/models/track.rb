@@ -2,7 +2,7 @@ class Track < ApplicationRecord
   include LibSupport::BaseObject
   belongs_to       :user
   strip_attributes :only => [:name, :descr]
-  set_ref_columns  :name
+  set_ref_columns  :user_name, :name
   set_form_columns :name, :descr, :public
   set_id_column    :code
   paginates_per 20
@@ -27,8 +27,16 @@ class Track < ApplicationRecord
     user = Permissions.extract_user(*opts)
     return where(:public => true) unless user
 
-    return all if user.admin?
-    where(:public => true).or where(:user_id => user.get_id)
+    return all.with_users if user.admin?
+    where(:public => true).with_users.or where(:user_id => user.get_id).with_users
+  end
+
+  def user_name
+    user.name
+  end
+
+  def self.with_users
+    joins(:user).includes(:user)
   end
 
   private

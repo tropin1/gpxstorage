@@ -1,4 +1,6 @@
 - content_for :title, controller.resource.model_name.human(:count => 2)
-- breadcrumb controller.resource.pl_name
+- if @user
+  - breadcrumb :user_tracks, @user
+- else
+  - breadcrumb :tracks
 = render partial: 'index'
-

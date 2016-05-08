@@ -1,14 +1,16 @@
 ru:
-  title: "GPX Storage"
+  my_tracks: "Мои треки"
   profile: "Профиль"
   sign_out: "Выход"
   sign_in: "Войти"
+  title: "GPX Storage"
   activerecord:
      attributes:
         track:
             name: "Название"
             descr: "Описание"
             public: "Общедоступный"
+            user_name: "Владелец"
         user:
             admin: "Администратор"
             email: "email"

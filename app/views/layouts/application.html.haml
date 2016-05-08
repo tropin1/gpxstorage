@@ -17,4 +17,5 @@
         .col-lg-12
           - if content_for? :title
             %h1.page-header= yield :title
+          = breadcrumbs style: :bootstrap
       = yield

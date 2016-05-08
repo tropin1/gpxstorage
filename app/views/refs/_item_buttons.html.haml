@@ -1,0 +1,13 @@
+%td.mx-ref-buttons
+  - if controller.ref_action?(:show) && item.permit?(controller.permission_params)
+    = link_to item, :class => 'btn btn-xs btn-default btn-icon' do
+      %i.fa.fa-pencil-square-o{'title' => t('lib_support.refs.edit')}
+      %span= t('lib_support.refs.edit')
+
+  - if controller.ref_action?(:remove) && item.permit_modify?(controller.permission_params)
+    = link_to '#', :class => 'btn btn-xs btn-danger btn-icon',  |
+                   :'data-type' => controller.resource.sm_name, |
+                   :'data-action' => 'remove_single',           |
+                   :'data-id' => item.get_id do
+      %i.fa.fa-trash-o{'title' => t('lib_support.refs.remove')}
+      %span= t('lib_support.refs.remove')

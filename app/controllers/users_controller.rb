@@ -1,6 +1,6 @@
 class UsersController < RefsController
   resource_type User
-  ref_options_set :ref_actions => [:index, :show, :remove, :index_items, :update]
+  ref_options_set :ref_actions => [:index, :show, :remove, :index_items, :update], :url_scope => '/admin'
 
   before_action :authenticate_user!, :except => [:show]
   before_action(:except => [:show, :update]) do

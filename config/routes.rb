@@ -11,8 +11,12 @@ Rails.application.routes.draw do
              }
 
   ref_resources :tracks
-  ref_resources(:users, :except => [:create, :new]) do
+  ref_resources(:users, :only => [:show, :update]) do
     ref_resources :tracks, :only => [:index, :index_items]
+  end
+
+  scope :admin do
+    ref_resources :users, :except => [:create, :new, :show, :update]
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

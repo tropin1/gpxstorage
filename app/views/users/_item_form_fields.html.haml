@@ -2,12 +2,12 @@
   .form-group
     = form.label col, :class => 'control-label col-md-2'
     .col-md-10
-      = form.text_field col, :class => 'form-control', :autofocus => col == :name
+      = form.text_field col, :class => 'form-control', :autofocus => col == :name, :disabled => !permit_modify
       %span.help-block
 .form-group
   .col-sm-offset-2.col-sm-10
     .checkbox
       %label
-        = form.check_box :admin |
+        = form.check_box :admin, :disabled => !permit_modify
         = User.human_attribute_name(:admin)
 

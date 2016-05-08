@@ -8,11 +8,19 @@ GIT
       activesupport (>= 3.0.0)
 
 GIT
+  remote: git://github.com/craig1410/gretel.git
+  revision: 665bdd436c792ff8ca3a3b0b4450c2a3f4705e08
+  branch: dep_alias_method_chain
+  specs:
+    gretel (3.0.8)
+      rails (>= 3.2.0)
+
+GIT
   remote: git://github.com/yamax2/lib_support.git
-  revision: 036173cf5e312f7fa98165b52e2ab6604cc0a6cc
+  revision: 9f2cbfcf9caa42201b207b511fc0e2cd4ff79f77
   branch: master
   specs:
-    lib_support (0.2.29)
+    lib_support (0.2.34)
       kaminari
       unicode
 
@@ -245,6 +253,7 @@ DEPENDENCIES
   devise
   devise-i18n
   font-awesome-rails
+  gretel!
   haml-rails
   jbuilder (~> 2.0)
   jquery-rails
