@@ -11,6 +11,6 @@ class CreateTracks < ActiveRecord::Migration[5.0]
     end
 
     add_index :tracks, :code, :unique => true
-    add_foreign_key :tracks, :users, on_delete: :restrict, on_update: :cascade
+    add_foreign_key :tracks, :users, on_delete: :cascade, on_update: :cascade
   end
 end

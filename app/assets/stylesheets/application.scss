@@ -63,8 +63,9 @@ body {
   }
 }
 
-.lib-support-list td {
-  white-space: nowrap;
+.mx-ref-buttons .btn {
+  margin: 2px;
+  min-width: 30px;
 }
 
 @media (max-width: $screen-xs-max) {
@@ -84,5 +85,11 @@ body {
      > .container {
        margin: auto;
      }
+  }
+
+  .lib-support-list[data-type="track"] {
+      td, th {
+        &[data-column-name="public"], &[data-column-name="created_at"] { display: none }
+      }
   }
 }

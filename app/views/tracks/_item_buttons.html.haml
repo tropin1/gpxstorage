@@ -1,0 +1,5 @@
+= link_to '#', :class => 'btn btn-xs btn-primary btn-icon' do
+  %i.fa.fa-map-marker{'title' => t('map_long')}
+  %span= t('map')
+- if item.permit_modify?(controller.permission_params)
+  = render partial: 'refs/item_buttons', :locals => {:item => item}

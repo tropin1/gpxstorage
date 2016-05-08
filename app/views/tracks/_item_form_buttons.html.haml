@@ -1,0 +1,7 @@
+.form-group
+  .col-md-offset-2.col-xs-10.col-md-8
+    - if permit_modify
+      = form.submit t('lib_support.refs.apply'), :class => 'btn btn-success'
+    = link_to t('map_long'), '#', :class => 'btn btn-primary'
+  .col-xs-2
+    = link_to t('lib_support.refs.cancel'), user_tracks_path(@item.user || current_user), :class => 'btn btn-default mx-btn-right'

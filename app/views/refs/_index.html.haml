@@ -11,7 +11,7 @@
           %th.mx-selector-th
             %input{'data-type' => name, :type => 'checkbox'}/
           - controller.resource.ref_columns.each do |column|
-            %th= controller.resource.human_attribute_name(column)
+            %th{'data-column-name' => column}= controller.resource.human_attribute_name(column)
           %th
       %tbody
 - if controller.ref_action?(:remove)

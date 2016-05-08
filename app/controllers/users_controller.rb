@@ -15,7 +15,7 @@ class UsersController < RefsController
 
   def resource_params
     par = params.require(resource.sm_name).permit(:name, :admin)
-    par.delete :admin unless current_user.admin?
+    par.delete :admin if @item.get_id == current_user.get_id || !current_user.admin?
 
     par
   end

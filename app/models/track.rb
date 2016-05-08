@@ -2,7 +2,7 @@ class Track < ApplicationRecord
   include LibSupport::BaseObject
   belongs_to       :user
   strip_attributes :only => [:name, :descr]
-  set_ref_columns  :user_name, :name
+  set_ref_columns  :name, :user_name, :public, :created_at
   set_form_columns :name, :descr, :public
   set_id_column    :code
   paginates_per 20
@@ -10,7 +10,7 @@ class Track < ApplicationRecord
   validates   :name, :presence => true, :length => { :maximum => 255 }
   validates   :code, :presence => true, :uniqueness => true
   validates   :user, :presence => true
-  validates   :public, :presence => true, :inclusion => { :in => [true, false] }
+  validates   :public, :inclusion => { :in => [true, false] }
 
   after_initialize { self.code ||= SecureRandom.hex(26) }
 

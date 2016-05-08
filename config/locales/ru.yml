@@ -1,4 +1,7 @@
 ru:
+  goto_tracks: "Перейти (%{cc})"
+  map: "Карта"
+  map_long: "Показать на карте"
   my_tracks: "Мои треки"
   profile: "Профиль"
   sign_out: "Выход"
@@ -7,14 +10,16 @@ ru:
   activerecord:
      attributes:
         track:
-            name: "Название"
+            created_at: "Добавлен"
             descr: "Описание"
+            name: "Название"
             public: "Общедоступный"
             user_name: "Владелец"
         user:
             admin: "Администратор"
             email: "email"
             name: "Имя"
+            tracks: "Треки пользователя"
      models:
         track:
           one: "Трек"

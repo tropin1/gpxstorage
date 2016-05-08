@@ -5,6 +5,10 @@ class TracksController < RefsController
     @user = User.find_by_id(params[:user_id]) if params[:user_id]
   end
 
+  before_filter :only => [:show] do
+    redirect_to root_path unless @item.permit_modify?(permission_params)
+  end
+
   def index_items
     super
 

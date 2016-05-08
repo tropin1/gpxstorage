@@ -1,3 +1,4 @@
+- permit_modify = @item.permit_modify?(controller.permission_params)
 - content_for :title, @item.name || controller.resource.model_name.human if @item.respond_to?(:name)
 - if @item.errors.any?
   .alert.alert-danger
@@ -8,10 +9,5 @@
         %li= x
 .row
   = form_for @item, :html => { :class => 'form-horizontal col-md-12' } do |f|
-    = render partial: 'item_form_fields', :locals => { :form => f, :permit_modify => @item.permit_modify?(controller.permission_params) }
-    .form-group
-      .col-md-offset-2.col-xs-10.col-md-8
-        - if @item.permit_modify?(controller.permission_params)
-          = f.submit t('lib_support.refs.apply'), :class => 'btn btn-success'
-      .col-xs-2
-        = link_to t('lib_support.refs.cancel'), { :controller => @item.class.to_s.tableize, :action => 'index' }, :class => 'btn btn-default mx-btn-right'
+    = render partial: 'item_form_fields', :locals => {:form => f, :permit_modify => permit_modify, :columns => @item.class.form_columns}
+    = render partial: 'item_form_buttons', :locals => {:form => f, :permit_modify => permit_modify}

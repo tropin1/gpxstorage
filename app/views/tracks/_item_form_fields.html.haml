@@ -1,0 +1,13 @@
+= render :partial => 'refs/item_form_fields', |
+  :locals => {:form => form, :permit_modify => permit_modify, :columns => @item.class.form_columns.except(:public, :descr)}
+
+.form-group
+  = form.label :descr, :class => 'control-label col-md-2'
+  .col-md-10
+    = form.text_area :descr, :class => 'form-control', :rows => 10, :disabled => !permit_modify, :style => 'resize: vertical'
+.form-group
+  .col-md-offset-2.col-xs-10
+    .checkbox
+      %label
+        = form.check_box :public, :disabled => !permit_modify
+        = Track.human_attribute_name(:public)

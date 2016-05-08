@@ -1,13 +1,12 @@
-- @item.class.form_columns.except(:admin).each do |col|
-  .form-group
-    = form.label col, :class => 'control-label col-md-2'
-    .col-md-10
-      = form.text_field col, :class => 'form-control', :autofocus => col == :name, :disabled => !permit_modify
-      %span.help-block
 .form-group
-  .col-sm-offset-2.col-sm-10
+  = form.label :tracks, :class => 'control-label col-md-2'
+  .col-md-10
+    = link_to t('goto_tracks', :cc => @item.tracks.count), user_tracks_path(@item), :class => 'btn btn-sm btn-default'
+= render :partial => 'refs/item_form_fields',
+  :locals => {:form => form, :permit_modify => permit_modify, :columns => @item.class.form_columns.except(:admin)}
+.form-group
+  .col-md-offset-2.col-xs-10
     .checkbox
       %label
-        = form.check_box :admin, :disabled => !permit_modify
+        = form.check_box :admin, :disabled => @item.get_id == current_user.get_id || !permit_modify
         = User.human_attribute_name(:admin)
-

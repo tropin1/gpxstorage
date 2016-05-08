@@ -66,5 +66,5 @@ ActiveRecord::Schema.define(version: 20160507171000) do
     t.index ["type"], name: "index_users_on_type", using: :btree
   end
 
-  add_foreign_key "tracks", "users", on_update: :cascade, on_delete: :restrict
+  add_foreign_key "tracks", "users", on_update: :cascade, on_delete: :cascade
 end
