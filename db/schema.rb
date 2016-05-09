@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160507171000) do
+ActiveRecord::Schema.define(version: 20160508150222) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,16 @@ ActiveRecord::Schema.define(version: 20160507171000) do
     t.datetime "updated_at",            default: -> { "timezone('UTC'::text, now())" }, null: false
     t.index ["txt_index"], name: "index_objects_on_txt_index", using: :gin
     t.index ["type"], name: "index_objects_on_type", using: :btree
+  end
+
+  create_table "track_items", force: :cascade do |t|
+    t.xml      "data",                   null: false
+    t.string   "color",      limit: 20,  null: false
+    t.string   "name",       limit: 255, null: false
+    t.integer  "track_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.index ["track_id"], name: "index_track_items_on_track_id", using: :btree
   end
 
   create_table "tracks", id: :integer, default: -> { "nextval('objects_id_seq'::regclass)" }, force: :cascade do |t|
@@ -66,5 +76,6 @@ ActiveRecord::Schema.define(version: 20160507171000) do
     t.index ["type"], name: "index_users_on_type", using: :btree
   end
 
+  add_foreign_key "track_items", "tracks", on_update: :cascade, on_delete: :cascade
   add_foreign_key "tracks", "users", on_update: :cascade, on_delete: :cascade
 end

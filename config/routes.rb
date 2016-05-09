@@ -10,7 +10,10 @@ Rails.application.routes.draw do
                 omniauth_callbacks: 'users/omniauth_callbacks'
              }
 
-  ref_resources :tracks
+  ref_resources :tracks do
+    put 'upload'  => 'tracks#upload'
+  end
+
   ref_resources(:users, :only => [:show, :update]) do
     ref_resources :tracks, :only => [:index, :index_items]
   end

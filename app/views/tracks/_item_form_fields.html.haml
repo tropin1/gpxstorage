@@ -1,6 +1,6 @@
+= form.hidden_field :code
 = render :partial => 'refs/item_form_fields', |
   :locals => {:form => form, :permit_modify => permit_modify, :columns => @item.class.form_columns.except(:public, :descr)}
-
 .form-group
   = form.label :descr, :class => 'control-label col-md-2'
   .col-md-10
@@ -11,3 +11,11 @@
       %label
         = form.check_box :public, :disabled => !permit_modify
         = Track.human_attribute_name(:public)
+.form-group
+  = form.label :items, :class => 'control-label col-md-2'
+  .col-md-10.track-items
+    .track-items-drop-here
+    = link_to '#', :class => 'gpx-file-select' do
+      %i.fa.fa-paperclip
+        %span= t('select_files')
+    = file_field_tag :track_items, :multiple => true, :class => 'hidden'

@@ -1,0 +1,45 @@
+@import 'variables';
+@import 'bootstrap/variables';
+
+.track-items-drop-here {
+  height: 3em;
+  border: 2px dashed $btn-default-border;
+  text-align: center;
+  line-height: calc(3em - 4px);
+  margin-bottom: $form-group-margin-bottom;
+
+  &:after {
+    content: '<%= I18n.t('drop_here') %>';
+    text-align: center;
+    width: 100%;
+    padding: 0.1em 0;
+    color: $btn-default-border;
+  }
+
+  &.active {
+    border: none;
+    &:after {
+      content: image_url('load.gif');
+    }
+  }
+}
+
+.gpx-file-select {
+  display: block;
+  font-size: $font-size-large;
+  margin-bottom: $form-group-margin-bottom;
+
+  &.active { color: $btn-default-border }
+}
+
+@media (max-width: $screen-xs-max) {
+  .lib-support-list[data-type="track"] {
+    td, th {
+      &[data-column-name="public"], &[data-column-name="created_at"] {
+        display: none
+      }
+    }
+  }
+
+  .track-items-drop-here { display: none }
+}

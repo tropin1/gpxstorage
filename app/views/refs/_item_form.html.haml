@@ -8,6 +8,6 @@
       - @item.errors.full_messages.each do |x|
         %li= x
 .row
-  = form_for @item, :html => { :class => 'form-horizontal col-md-12' } do |f|
+  = form_for @item, :html => { :class => 'form-horizontal col-md-12', :'data-type' => @item.sm_name } do |f|
     = render partial: 'item_form_fields', :locals => {:form => f, :permit_modify => permit_modify, :columns => @item.class.form_columns}
     = render partial: 'item_form_buttons', :locals => {:form => f, :permit_modify => permit_modify}

@@ -1,0 +1,58 @@
+document.addEventListener 'turbolinks:load', ->
+  form = $('form[data-type="track"]');
+  return unless form.length > 0;
+
+  $btn = $('.gpx-file-select', form);
+  $panel = $('.track-items-drop-here', form);
+  $uploading = 0;
+
+  $btn.click ->
+    $('#track_items').click() unless $(@).is('.active');
+    false;
+
+  $('#track_items').change ->
+    $btn.addClass('active');
+    $panel.addClass('active');
+
+    checkState = ->
+      if $uploading <= 0
+        $btn.removeClass('active');
+        $panel.removeClass('active');
+
+      return;
+
+    for file in @.files
+      unless file.size <= <%= Rails.application.config.max_attach_size %>
+        checkState();
+        continue;
+
+      $.ajax "/tracks/#{$('#track_code').val()}/upload",
+        type: 'PUT'
+        data: file
+        contentType: 'application/octet-stream'
+        cache: false
+        processData: false
+        error: GpxSupport.showErrorStatus;
+
+        success: ( (result) ->
+          #filename = @;
+          alert @;
+
+          return;
+        ).bind(file.name);
+
+        complete: ->
+          $uploading--;
+          checkState();
+
+          return;
+
+        xhr: ->
+          xhr = $.ajaxSettings.xhr();
+          xhr.onloadstart = -> $uploading++;
+          xhr;
+
+    $(@).val('');
+    return;
+
+  return;

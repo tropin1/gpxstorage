@@ -1,9 +1,11 @@
 ru:
+  drop_here: "Перетащите сюда gpx-файлы"
   goto_tracks: "Перейти (%{cc})"
   map: "Карта"
   map_long: "Показать на карте"
   my_tracks: "Мои треки"
   profile: "Профиль"
+  select_files: "Выбрать файлы"
   sign_out: "Выход"
   sign_in: "Войти"
   title: "GPX Storage"
@@ -13,6 +15,7 @@ ru:
             created_at: "Добавлен"
             descr: "Описание"
             name: "Название"
+            items: "gpx файлы"
             public: "Общедоступный"
             user_name: "Владелец"
         user:

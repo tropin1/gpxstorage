@@ -1,6 +1,7 @@
 class Track < ApplicationRecord
   include LibSupport::BaseObject
   belongs_to       :user
+  has_many         :track_items
   strip_attributes :only => [:name, :descr]
   set_ref_columns  :name, :user_name, :public, :created_at
   set_form_columns :name, :descr, :public

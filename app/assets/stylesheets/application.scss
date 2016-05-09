@@ -19,8 +19,7 @@
 
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
-
-$focus_color: #f9f9f9;
+@import 'variables';
 
 body {
     font-family: 'Ubuntu', sans-serif;
@@ -85,11 +84,5 @@ body {
      > .container {
        margin: auto;
      }
-  }
-
-  .lib-support-list[data-type="track"] {
-      td, th {
-        &[data-column-name="public"], &[data-column-name="created_at"] { display: none }
-      }
   }
 }

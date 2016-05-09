@@ -15,6 +15,14 @@ class TracksController < RefsController
     @items = @items.where(:user_id => @user.id) if @user
   end
 
+  def upload
+    if request.content_length <= Rails.application.config.max_attach_size && (fn = TmpFiles.upload(params[:track_code], request.raw_post))
+      render json: { :name => fn }
+    else
+      render body: nil, status: :unprocessable_entity
+    end
+  end
+
   def url_scope(action)
     "/users/#{params[:user_id]}" if action == :index_items && params[:user_id]
   end
