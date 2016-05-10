@@ -1,9 +1,94 @@
+$btn = undefined;
+$panel = undefined;
+$uploading = 0;
+$uploaded = 0;
+
 prepareAddons = (parent) ->
-  $('.remove-addon:not([data-ready="true"])', parent)
+  $('.remove-addon:not([data-ready])', parent)
       .attr('data-ready', true)
       .click ->
-          $(@).closest('.gpx-track-item').remove();
+          item = $(@).closest('.gpx-track-item');
+          item.next().remove() for [1..2];
+          item.remove();
           return;
+
+  $('.color-addon:not([data-ready])', parent)
+      .attr('data-ready', true)
+      .click ->
+          $(@).toggleClass('active').closest('.gpx-track-item').next().toggleClass('active');
+          return;
+
+  $('.gpx-track-item-color-marker:not([data-ready])', parent)
+      .attr('data-ready', true)
+      .click ->
+          item = $(@).prev();
+          item.toggleClass('active');
+          item.prev().find('.color-addon').toggleClass('active');
+
+          return;
+
+  $('.gpx-track-item-color-picker:not([data-ready])', parent)
+      .attr('data-ready', true)
+      .find('select')
+        .removeAttr('name')
+        .removeAttr('id')
+        .change ->
+           value = $(@).val();
+           item = $(@).closest('.gpx-track-item-color-picker');
+           item.next().css('background-color', value);
+           item.prev().find('input[data-field="color"]').val value;
+           return;
+        .simplecolorpicker
+           theme: 'fontawesome';
+
+  return;
+
+uploadFiles = (files) ->
+  $btn.addClass('active');
+  $panel.addClass('active');
+
+  checkState = ->
+    if $uploading <= 0
+      $btn.removeClass('active');
+      $panel.removeClass('active');
+
+    return;
+
+  for file in files
+    unless file.size <= <%= Rails.application.config.max_attach_size %>
+      checkState();
+      continue;
+
+    $.ajax "/tracks/#{$panel.data('code')}/upload",
+      type: 'PUT'
+      data: file
+      contentType: 'application/octet-stream'
+      cache: false
+      processData: false
+      error: GpxSupport.showErrorStatus;
+      success: ( (result) ->
+        html = $(result);
+        form = $btn.closest('form');
+
+        $('input', html).removeAttr('id')
+        $('input[type="text"]', html).attr('name', "track[track_items][#{$uploaded}][name]").val(@);
+        $('input[data-field="code"]', html).attr('name', "track[track_items][#{$uploaded}][code]");
+        $('input[data-field="color"]', html).attr('name', "track[track_items][#{$uploaded}][color]");
+        $uploaded++;
+
+        $btn.before html;
+        prepareAddons form;
+
+        return;
+       ).bind(file.name)
+      complete: ->
+        $uploading--;
+        checkState();
+        return;
+      xhr: ->
+        xhr = $.ajaxSettings.xhr();
+        xhr.onloadstart = -> $uploading++;
+        xhr;
 
   return;
 
@@ -17,60 +102,25 @@ document.addEventListener 'turbolinks:load', ->
   $uploaded = $('.gpx-track-item', form).length;
   prepareAddons form;
 
+  $panel.on('drop', ->
+     $(@).removeClass('dragging');
+     uploadFiles event.dataTransfer.files;
+     false;
+  ).on('dragover', -> false)
+   .on('dragenter', ->
+     $(@).addClass('dragging');
+     false;
+  ).on('dragleave', (e) ->
+     $(@).removeClass('dragging');
+     false
+  );
+
   $btn.click ->
     $('#track_items_files').click() unless $(@).is('.active');
     false;
 
   $('#track_items_files').change ->
-    $btn.addClass('active');
-    $panel.addClass('active');
-
-    checkState = ->
-      if $uploading <= 0
-        $btn.removeClass('active');
-        $panel.removeClass('active');
-
-      return;
-
-    for file in @.files
-      unless file.size <= <%= Rails.application.config.max_attach_size %>
-        checkState();
-        continue;
-
-      $.ajax "/tracks/#{$panel.data('code')}/upload",
-        type: 'PUT'
-        data: file
-        contentType: 'application/octet-stream'
-        cache: false
-        processData: false
-        error: GpxSupport.showErrorStatus;
-
-        success: ( (result) ->
-          html = $(result);
-          form = $btn.closest('form');
-
-          $('input', html).removeAttr('id')
-          $('input[type="text"]', html).attr('name', "track[track_items][#{$uploaded}][name]").val(@);
-          $('input[type="hidden"]', html).attr('name', "track[track_items][#{$uploaded}][code]");
-          $uploaded++;
-
-          $btn.before html;
-          prepareAddons form;
-
-          return;
-        ).bind(file.name);
-
-        complete: ->
-          $uploading--;
-          checkState();
-
-          return;
-
-        xhr: ->
-          xhr = $.ajaxSettings.xhr();
-          xhr.onloadstart = -> $uploading++;
-          xhr;
-
+    uploadFiles @.files;
     $(@).val('');
     return;
 

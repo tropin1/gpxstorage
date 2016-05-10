@@ -8,6 +8,11 @@
     %i.fa.fa-map-marker
   .input-group-addon.remove-addon{:title => t('remove_item')}
     %i.fa.fa-times
-  = hidden_field_tag "track[track_items][#{ord_value}][code]", code_value
+  = hidden_field_tag "track[track_items][#{ord_value}][code]", code_value, :'data-field' => :code
+  = hidden_field_tag "track[track_items][#{ord_value}][color]", item_value&.color, :'data-field' => :color
   - if item_value
     = hidden_field_tag "track[track_items][#{ord_value}][update_id]", item_value.id
+.gpx-track-item-color-picker
+  .col-xs-12.color-picker
+    = select_tag "track[track_items][#{ord_value}][color_selector]", options_colors(item_value&.color || Track::DEFAULT_COLOR), :class => 'form-control'
+.gpx-track-item-color-marker{:title => t('color_select'), :style => "background-color: #{item_value&.color || Track::DEFAULT_COLOR}" }

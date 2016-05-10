@@ -1,4 +1,6 @@
 class Track < ApplicationRecord
+  DEFAULT_COLOR = 'red'
+
   include LibSupport::BaseObject
   belongs_to       :user
   has_many         :track_items, -> { order(:created_at) }, foreign_key: :track_code
@@ -55,7 +57,7 @@ class Track < ApplicationRecord
 
   def pin_items
     values = (@items_cache || {}).map do |_, value|
-      { :name => 'item', :color => 'red' }.merge value.symbolize_keys
+      { :name => 'item', :color => DEFAULT_COLOR }.merge value.symbolize_keys
     end
 
     for_update = values.map{|x| x[:update_id] }.compact
@@ -63,16 +65,14 @@ class Track < ApplicationRecord
       value = values.select{|x| x[:update_id] == id }.first
       item = track_items.where(:id => id).first
 
-      next unless item && value
-      item.update :name => value[:name], :color => value[:color]
+      item.update :name => value[:name], :color => value[:color] if item && value
     end
 
     track_items.where.not(:id => for_update ).destroy_all
-
-    values.select {|x| x[:update_id].nil? }.each do |item|
+    values.select {|x| x[:update_id].nil? }.each { |item|
       TrackItem.create :name => item[:name], :color => item[:color], :track => self,
                        :data => TmpFiles.read(code, item[:code])
-    end
+    }
 
     @items_cache = nil
   end

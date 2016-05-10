@@ -14,5 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sprockets
+//= require jquery.simplecolorpicker
 //= require lib_support
 //= require_tree .

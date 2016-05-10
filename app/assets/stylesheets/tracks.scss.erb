@@ -3,7 +3,7 @@
 
 .track-items-drop-here {
   height: 3em;
-  border: 2px dashed $btn-default-border;
+  border: 2px dashed $input-border;
   text-align: center;
   line-height: calc(3em - 4px);
   margin-bottom: $form-group-margin-bottom;
@@ -18,9 +18,12 @@
 
   &.active {
     border: none;
-    &:after {
-      content: image_url('load.gif');
-    }
+    &:after { content: image_url('load.gif') }
+  }
+
+  &.dragging {
+    border-color: $input-border-focus;
+    &:after { color: inherit }
   }
 }
 
@@ -31,10 +34,9 @@
 }
 
 .gpx-track-item {
-  margin-bottom: $form-group-margin-bottom;
-
   input {
     border-right: none;
+    border-radius: $border-radius-base 0 0 0;
   }
 
   .input-group-addon {
@@ -45,8 +47,30 @@
       &.remove-addon { color: $brand-danger }
     }
 
-    &.remove-addon {
-      border-left: none;
+    &.remove-addon { border-left: none; }
+    &.color-addon.active { color: $brand-primary }
+  }
+
+  &+.gpx-track-item-color-picker {
+    &.active { max-height: 20em; }
+    border-left: 1px solid $input-border;
+    border-right: 1px solid $input-border;
+    transition: max-height 0.8s;
+    overflow: hidden;
+    max-height: 0;
+
+    .color-picker {
+      margin-top: $form-group-margin-bottom;
+      margin-bottom: $form-group-margin-bottom;
+
+      .simplecolorpicker { padding: 0; }
+    }
+
+    &+.gpx-track-item-color-marker {
+      height: 0.8em;
+      margin-bottom: $form-group-margin-bottom;
+      border-radius: 0 0 $border-radius-base $border-radius-base;
+      cursor: pointer;
     }
   }
 }
@@ -54,9 +78,7 @@
 @media (max-width: $screen-xs-max) {
   .lib-support-list[data-type="track"] {
     td, th {
-      &[data-column-name="public"], &[data-column-name="created_at"] {
-        display: none
-      }
+      &[data-column-name="public"], &[data-column-name="created_at"] { display: none }
     }
   }
 
