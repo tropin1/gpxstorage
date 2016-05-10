@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/amatsuda/kaminari.git
-  revision: 03ffb28ec3ca4ec54a9018e6e81674813bd15f8e
+  revision: 17d0fb83aa8e257ecf887d3c9774f4289bee4458
   branch: master
   specs:
     kaminari (1.0.0.alpha)
@@ -17,10 +17,10 @@ GIT
 
 GIT
   remote: git://github.com/yamax2/lib_support.git
-  revision: eb5c026fb6d854eb20d3f4ddd86bc467e4898221
+  revision: 42f406de7fbf6881c653e9d03cf93b8a600e96c9
   branch: master
   specs:
-    lib_support (0.2.37)
+    lib_support (0.2.39)
       kaminari
       unicode
 

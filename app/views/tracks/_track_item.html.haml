@@ -1,0 +1,13 @@
+- item_value = local_assigns[:item]
+- ord_value = local_assigns[:ord] || 0
+- code_value = local_assigns[:code]
+
+.input-group.gpx-track-item
+  = text_field_tag "track[track_items][#{ord_value}][name]", item_value&.name, :class => 'form-control'
+  .input-group-addon.color-addon{:title => t('color_select')}
+    %i.fa.fa-map-marker
+  .input-group-addon.remove-addon{:title => t('remove_item')}
+    %i.fa.fa-times
+  = hidden_field_tag "track[track_items][#{ord_value}][code]", code_value
+  - if item_value
+    = hidden_field_tag "track[track_items][#{ord_value}][update_id]", item_value.id

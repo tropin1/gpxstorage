@@ -1,3 +1,12 @@
+prepareAddons = (parent) ->
+  $('.remove-addon:not([data-ready="true"])', parent)
+      .attr('data-ready', true)
+      .click ->
+          $(@).closest('.gpx-track-item').remove();
+          return;
+
+  return;
+
 document.addEventListener 'turbolinks:load', ->
   form = $('form[data-type="track"]');
   return unless form.length > 0;
@@ -5,12 +14,14 @@ document.addEventListener 'turbolinks:load', ->
   $btn = $('.gpx-file-select', form);
   $panel = $('.track-items-drop-here', form);
   $uploading = 0;
+  $uploaded = $('.gpx-track-item', form).length;
+  prepareAddons form;
 
   $btn.click ->
-    $('#track_items').click() unless $(@).is('.active');
+    $('#track_items_files').click() unless $(@).is('.active');
     false;
 
-  $('#track_items').change ->
+  $('#track_items_files').change ->
     $btn.addClass('active');
     $panel.addClass('active');
 
@@ -26,7 +37,7 @@ document.addEventListener 'turbolinks:load', ->
         checkState();
         continue;
 
-      $.ajax "/tracks/#{$('#track_code').val()}/upload",
+      $.ajax "/tracks/#{$panel.data('code')}/upload",
         type: 'PUT'
         data: file
         contentType: 'application/octet-stream'
@@ -35,8 +46,16 @@ document.addEventListener 'turbolinks:load', ->
         error: GpxSupport.showErrorStatus;
 
         success: ( (result) ->
-          #filename = @;
-          alert @;
+          html = $(result);
+          form = $btn.closest('form');
+
+          $('input', html).removeAttr('id')
+          $('input[type="text"]', html).attr('name', "track[track_items][#{$uploaded}][name]").val(@);
+          $('input[type="hidden"]', html).attr('name', "track[track_items][#{$uploaded}][code]");
+          $uploaded++;
+
+          $btn.before html;
+          prepareAddons form;
 
           return;
         ).bind(file.name);

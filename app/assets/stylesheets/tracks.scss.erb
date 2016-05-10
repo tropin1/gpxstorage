@@ -27,9 +27,28 @@
 .gpx-file-select {
   display: block;
   font-size: $font-size-large;
+  &.active { color: $btn-default-border }
+}
+
+.gpx-track-item {
   margin-bottom: $form-group-margin-bottom;
 
-  &.active { color: $btn-default-border }
+  input {
+    border-right: none;
+  }
+
+  .input-group-addon {
+    cursor: pointer;
+
+    &:hover {
+      &.color-addon { color: $brand-primary }
+      &.remove-addon { color: $brand-danger }
+    }
+
+    &.remove-addon {
+      border-left: none;
+    }
+  }
 }
 
 @media (max-width: $screen-xs-max) {

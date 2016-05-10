@@ -31,22 +31,22 @@ ActiveRecord::Schema.define(version: 20160508150222) do
     t.xml      "data",                   null: false
     t.string   "color",      limit: 20,  null: false
     t.string   "name",       limit: 255, null: false
-    t.integer  "track_id"
+    t.string   "track_code", limit: 52,  null: false
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-    t.index ["track_id"], name: "index_track_items_on_track_id", using: :btree
+    t.index ["track_code"], name: "index_track_items_on_track_code", using: :btree
   end
 
-  create_table "tracks", id: :integer, default: -> { "nextval('objects_id_seq'::regclass)" }, force: :cascade do |t|
+  create_table "tracks", primary_key: "code", id: :string, limit: 52, force: :cascade do |t|
+    t.integer  "id",                     default: -> { "nextval('objects_id_seq'::regclass)" }, null: false
     t.tsvector "txt_index"
-    t.string   "type",       limit: 50,  default: "Track",                               null: false
-    t.datetime "created_at",             default: -> { "timezone('UTC'::text, now())" }, null: false
-    t.datetime "updated_at",             default: -> { "timezone('UTC'::text, now())" }, null: false
-    t.string   "code",       limit: 52,                                                  null: false
-    t.string   "name",       limit: 255,                                                 null: false
+    t.string   "type",       limit: 50,  default: "Track",                                      null: false
+    t.datetime "created_at",             default: -> { "timezone('UTC'::text, now())" },        null: false
+    t.datetime "updated_at",             default: -> { "timezone('UTC'::text, now())" },        null: false
+    t.string   "name",       limit: 255,                                                        null: false
     t.integer  "user_id"
     t.text     "descr"
-    t.boolean  "public",                 default: true,                                  null: false
+    t.boolean  "public",                 default: true,                                         null: false
     t.index ["code"], name: "index_tracks_on_code", unique: true, using: :btree
     t.index ["txt_index"], name: "index_tracks_on_txt_index", using: :gin
     t.index ["type"], name: "index_tracks_on_type", using: :btree
@@ -76,6 +76,6 @@ ActiveRecord::Schema.define(version: 20160508150222) do
     t.index ["type"], name: "index_users_on_type", using: :btree
   end
 
-  add_foreign_key "track_items", "tracks", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "track_items", "tracks", column: "track_code", primary_key: "code", on_update: :cascade, on_delete: :cascade
   add_foreign_key "tracks", "users", on_update: :cascade, on_delete: :cascade
 end

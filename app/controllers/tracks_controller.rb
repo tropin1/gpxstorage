@@ -1,11 +1,12 @@
 class TracksController < RefsController
   resource_type Track
+  layout false, :only => :upload
 
   before_action :only => [:index, :index_items] do
     @user = User.find_by_id(params[:user_id]) if params[:user_id]
   end
 
-  before_filter :only => [:show] do
+  before_action :only => [:show] do
     redirect_to root_path unless @item.permit_modify?(permission_params)
   end
 
@@ -16,11 +17,8 @@ class TracksController < RefsController
   end
 
   def upload
-    if request.content_length <= Rails.application.config.max_attach_size && (fn = TmpFiles.upload(params[:track_code], request.raw_post))
-      render json: { :name => fn }
-    else
-      render body: nil, status: :unprocessable_entity
-    end
+    render body: nil, status: :unprocessable_entity unless request.content_length <= Rails.application.config.max_attach_size &&
+        (@code = TmpFiles.upload(params[:track_code], request.raw_post))
   end
 
   def url_scope(action)
@@ -30,7 +28,7 @@ class TracksController < RefsController
   protected
 
   def resource_params
-    params.require(resource.sm_name).permit(:name, :descr, :public)
+    params.require(resource.sm_name).permit(:name, :descr, :public, :track_items => [:name, :code, :color, :update_id])
   end
 
   def update_resource(options = {})

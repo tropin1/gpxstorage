@@ -1,6 +1,6 @@
 class CreateTracks < ActiveRecord::Migration[5.0]
   def change
-    object_ref_create(:tracks, :indexed_columns => [:name, :descr]) do |t|
+    object_ref_create(:tracks, :indexed_columns => [:name, :descr], :id => :code) do |t|
       t.string      :code, :limit => 52, :null => false
       t.string      :name, :limit => 255, :null => false
       t.references  :user, :index => true
