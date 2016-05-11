@@ -1,5 +1,5 @@
 class Track < ApplicationRecord
-  DEFAULT_COLOR = 'red'
+  DEFAULT_COLOR = 'dodgerblue'
 
   include LibSupport::BaseObject
   belongs_to       :user
@@ -37,8 +37,14 @@ class Track < ApplicationRecord
     res.with_users
   end
 
+  def track_items
+    @items_cache || super
+  end
+
   def track_items=(value)
-    @items_cache = value
+    @items_cache = (value || {}).map do |_, val|
+      {:color => DEFAULT_COLOR}.merge(val.symbolize_keys.delete_if{|__, v| v.nil? || v.to_s.empty? }).methods_for_keys
+    end
   end
 
   def user_name
@@ -56,9 +62,8 @@ class Track < ApplicationRecord
   end
 
   def pin_items
-    values = (@items_cache || {}).map do |_, value|
-      { :name => 'item', :color => DEFAULT_COLOR }.merge value.symbolize_keys
-    end
+    values = @items_cache
+    @items_cache = nil
 
     for_update = values.map{|x| x[:update_id] }.compact
     for_update.each do |id|
@@ -71,9 +76,7 @@ class Track < ApplicationRecord
     track_items.where.not(:id => for_update ).destroy_all
     values.select {|x| x[:update_id].nil? }.each { |item|
       TrackItem.create :name => item[:name], :color => item[:color], :track => self,
-                       :data => TmpFiles.read(code, item[:code])
+                       :data => TmpFiles.read(item[:code])
     }
-
-    @items_cache = nil
   end
 end

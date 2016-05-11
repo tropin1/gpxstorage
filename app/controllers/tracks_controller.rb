@@ -18,7 +18,7 @@ class TracksController < RefsController
 
   def upload
     render body: nil, status: :unprocessable_entity unless request.content_length <= Rails.application.config.max_attach_size &&
-        (@code = TmpFiles.upload(params[:track_code], request.raw_post))
+        (@code = TmpFiles.upload(request.raw_post))
   end
 
   def url_scope(action)

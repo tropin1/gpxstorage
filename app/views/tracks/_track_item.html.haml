@@ -1,6 +1,7 @@
 - item_value = local_assigns[:item]
 - ord_value = local_assigns[:ord] || 0
 - code_value = local_assigns[:code]
+- color_value = item_value&.color || Track::DEFAULT_COLOR
 
 .input-group.gpx-track-item
   = text_field_tag "track[track_items][#{ord_value}][name]", item_value&.name, :class => 'form-control'
@@ -8,11 +9,11 @@
     %i.fa.fa-map-marker
   .input-group-addon.remove-addon{:title => t('remove_item')}
     %i.fa.fa-times
-  = hidden_field_tag "track[track_items][#{ord_value}][code]", code_value, :'data-field' => :code
-  = hidden_field_tag "track[track_items][#{ord_value}][color]", item_value&.color, :'data-field' => :color
-  - if item_value
-    = hidden_field_tag "track[track_items][#{ord_value}][update_id]", item_value.id
+  = hidden_field_tag "track[track_items][#{ord_value}][code]", code_value || item_value.code, :'data-field' => :code
+  = hidden_field_tag "track[track_items][#{ord_value}][color]", color_value, :'data-field' => :color
+  - if item_value && item_value.respond_to?(:update_id)
+    = hidden_field_tag "track[track_items][#{ord_value}][update_id]", item_value.update_id
 .gpx-track-item-color-picker
   .col-xs-12.color-picker
-    = select_tag "track[track_items][#{ord_value}][color_selector]", options_colors(item_value&.color || Track::DEFAULT_COLOR), :class => 'form-control'
-.gpx-track-item-color-marker{:title => t('color_select'), :style => "background-color: #{item_value&.color || Track::DEFAULT_COLOR}" }
+    = select_tag "track[track_items][#{ord_value}][color_selector]", options_colors(color_value), :class => 'form-control'
+.gpx-track-item-color-marker{:title => t('color_select'), :style => "background-color: #{color_value}" }
