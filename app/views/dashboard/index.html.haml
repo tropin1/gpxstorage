@@ -1,6 +1,6 @@
 %div#overlay
   %video{'preload' => 'auto', 'autoplay' => '', 'loop' => ''}
-    %source{'type' => 'video/mp4', 'src' => 'https://photo.mytm.tk/videos/out.mp4'}
+    %source{'type' => 'video/mp4', 'src' => '/out.mp4'}
   %div.info-block
 .app-header
   %h2= t('dashboard.title')
@@ -9,6 +9,8 @@
     = image_tag 'bike.png'
     = image_tag 'walk.png'
 - if user_signed_in?
-  = link_to t('add_track'), new_track_path(current_user), :class => 'btn btn-lg btn-success'
+  = link_to t('add_track'), new_track_path, :class => 'btn btn-lg btn-success'
 - else
   = render partial: 'users/sessions/new'
+.footer
+  = Rails.application.config.ver

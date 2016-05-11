@@ -7,4 +7,6 @@ Rails.application.configure do
   config.time_zone = 'Asia/Yekaterinburg'
   config.i18n.enforce_available_locales = true
   config.i18n.default_locale = :ru
+
+  config.ver = File.read(Rails.root.join('public', 'ver.txt')).gsub("\n", '')
 end

@@ -18,7 +18,7 @@
               %b.caret
             %ul.dropdown-menu
               %li= link_to t('profile'), user_path(current_user)
-              %li= link_to t('add_track'), new_track_path(current_user)
+              %li= link_to t('add_track'), new_track_path
               %li= link_to t('my_tracks'), user_tracks_path(current_user)
               %li.divider
               %li= link_to t('sign_out'), destroy_user_session_path, :method => :delete

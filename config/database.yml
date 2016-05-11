@@ -83,6 +83,6 @@ test:
 #
 production:
   <<: *default
-  database: gpxstorage_production
-  username: gpxstorage
+  database: gpx
+  username: gpx
   password: <%= ENV['GPXSTORAGE_DATABASE_PASSWORD'] %>
