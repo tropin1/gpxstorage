@@ -36,4 +36,6 @@ class @GpxSupport extends @LibSupport
 
 document.addEventListener 'turbolinks:load', ->
   libSupport.prepareIndexLists();
+  $('.navbar-fixed-top[role="navigation"]').toggleClass('start-page', $('#overlay').length > 0);
+
   return;

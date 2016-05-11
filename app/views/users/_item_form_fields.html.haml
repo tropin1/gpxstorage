@@ -2,6 +2,10 @@
   = form.label :tracks, :class => 'control-label col-md-2'
   .col-md-10
     = link_to t('goto_tracks', :cc => @item.tracks.count), user_tracks_path(@item), :class => 'btn btn-sm btn-default'
+.form-group
+  = form.label :email, :class => 'control-label col-md-2'
+  .col-md-10.email-field
+    = link_to @item.email, "mailto:#{@item.email}"
 = render :partial => 'refs/item_form_fields',
   :locals => {:form => form, :permit_modify => permit_modify, :columns => @item.class.form_columns.except(:admin)}
 .form-group

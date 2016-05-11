@@ -161,6 +161,9 @@ GEM
     omniauth-oauth2 (1.4.0)
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
+    omniauth-yandex (0.0.2)
+      omniauth (~> 1.0)
+      omniauth-oauth2 (~> 1.0)
     orm_adapter (0.5.0)
     pg (0.18.4)
     puma (3.4.0)
@@ -266,6 +269,7 @@ DEPENDENCIES
   lib_support!
   listen (~> 3.0.5)
   omniauth-google-oauth2
+  omniauth-yandex
   pg (~> 0.18)
   puma
   rails (>= 5.0.0.beta4, < 5.1)

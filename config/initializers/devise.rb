@@ -2,7 +2,8 @@
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
 
-  config.omniauth :google_oauth2, Rails.application.secrets.google_data_1, Rails.application.secrets.google_data_2, {
+  config.omniauth :yandex, Rails.application.secrets.yandex_app_id, Rails.application.secrets.yandex_app_pass
+  config.omniauth :google_oauth2, Rails.application.secrets.google_app_id, Rails.application.secrets.google_app_pass, {
       :image_aspect_ratio => 'square',
       :image_size => 32,
       :skip_jwt => true

@@ -155,9 +155,9 @@ document.addEventListener 'turbolinks:load', ->
   $uploaded = $('.gpx-track-item', form).length;
   prepareAddons form;
 
-  $panel.on('drop', ->
+  $panel.on('drop', (e) ->
      $(@).removeClass('dragging');
-     uploadFiles event.dataTransfer.files;
+     uploadFiles e.originalEvent.dataTransfer.files;
      false;
   ).on('dragover', -> false)
    .on('dragenter', ->

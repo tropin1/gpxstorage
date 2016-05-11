@@ -61,3 +61,4 @@ gem 'kaminari', :git => 'git://github.com/amatsuda/kaminari.git', :branch => 'ma
 gem 'gretel', :git => 'git://github.com/craig1410/gretel.git', :branch => 'dep_alias_method_chain'
 gem 'jquery-simplecolorpicker-rails'
 gem 'leaflet-rails'
+gem 'omniauth-yandex'

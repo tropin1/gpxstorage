@@ -58,10 +58,21 @@ body {
   border-color: $focus_color;
 }
 
-.nav > li > a {
-  &:hover, &:focus {
-    text-decoration: none;
-    background-color: $focus_color;
+.start-page {
+  .nav > li > a {
+    &:hover, &:focus {
+      text-decoration: none;
+      background: none;
+      font-weight: bold;
+    }
+  }
+
+  .nav .open > a {
+    background: none;
+
+    &:hover, &:focus {
+      background: none
+    }
   }
 }
 
@@ -70,7 +81,19 @@ body {
   min-width: 30px;
 }
 
+.btn-yandex {
+  background-color: $yandex_color;
+  border-color: $yandex_color;
+  color: $yandex_text_color;
+}
+
+.btn-sign-in {
+  margin: 0 0.5em 0.5em 0;
+}
+
 @media (max-width: $screen-xs-max) {
+  .btn-sign-in { font-size: 14px }
+
   .btn-icon {
     > span {
       display: none

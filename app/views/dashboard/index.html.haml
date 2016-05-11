@@ -4,6 +4,8 @@
   %div.info-block
 .app-header
   %h2= t('dashboard.title')
+  = link_to t('dashboard.gpx_url'), :target => '_blank' do
+    %h5= t('dashboard.gpx_text')
   .travel-icons
     = image_tag 'car.png'
     = image_tag 'bike.png'

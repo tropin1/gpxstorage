@@ -15,7 +15,9 @@ ru:
   sign_in: "Войти"
   title: "GPX Storage"
   dashboard:
-    title: "Простое приложение для отображения gpx-треков"
+    title: "Простое приложение для хранения и отображения gpx-треков"
+    gpx_text: "Описание формата GPX"
+    gpx_url: "https://ru.wikipedia.org/wiki/GPX"
   activerecord:
      attributes:
         track:
