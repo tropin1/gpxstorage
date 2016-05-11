@@ -28,6 +28,7 @@ class TracksController < RefsController
   def index_items
     super
 
+    @items = @items.reorder(:created_at => :desc)
     @items = @items.where(:user_id => @user.id) if @user
   end
 
