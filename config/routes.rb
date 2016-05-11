@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   ref_resources :tracks do
     put 'upload'  => 'tracks#upload'
+    get 'view'    => 'tracks#view', :as => :view
+    get 'gpx'     => 'tracks#gpx', :as => :gpx
   end
 
   ref_resources(:users, :only => [:show, :update]) do

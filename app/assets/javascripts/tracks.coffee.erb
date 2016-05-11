@@ -3,6 +3,30 @@ $panel = undefined;
 $uploading = 0;
 $uploaded = 0;
 
+initMap = (tracks) ->
+  map = new L.Map('map');
+
+  $('html,body').css('height', '100%');
+  #osmUrl = 'https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png';
+  osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+  osm = new L.TileLayer(osmUrl);
+  map.addLayer(osm);
+
+  for track in tracks
+    new L.GPX(track.url,
+          async: true,
+          marker_options:
+            startIconUrl: '/pin-icon-start.png',
+            endIconUrl: '/pin-icon-end.png',
+            shadowUrl: '/pin-shadow.png'
+          polyline_options:
+            color: track.color
+    ).on('loaded', (e) ->
+      map.fitBounds e.target.getBounds();
+    ).addTo(map);
+
+  return;
+
 prepareAddons = (parent) ->
   $('.remove-addon:not([data-ready])', parent)
       .attr('data-ready', true)
@@ -93,6 +117,9 @@ uploadFiles = (files) ->
   return;
 
 document.addEventListener 'turbolinks:load', ->
+  map = $('#map');
+  initMap(map.data('tracks') || []) if map.length > 0;
+
   form = $('form[data-type="track"]');
   return unless form.length > 0;
 

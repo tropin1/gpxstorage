@@ -10,10 +10,29 @@ class TracksController < RefsController
     redirect_to root_path unless @item.permit_modify?(permission_params)
   end
 
+  before_action :only => [:gpx, :view] do
+    @item = resource.find_by_code(params[:track_code])
+    redirect_to root_path unless @item && @item.permit?(permission_params)
+  end
+
+  def gpx
+    item = @item.track_items.where(:id => params[:id]).first
+
+    if item
+      render xml: item.data
+    else
+      render body: nil, status: :not_found
+    end
+  end
+
   def index_items
     super
 
     @items = @items.where(:user_id => @user.id) if @user
+  end
+
+  def view
+
   end
 
   def upload

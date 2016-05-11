@@ -1,0 +1,14 @@
+- content_for :map_view, true
+- content_for :page_title, @item.name
+#map{'data-tracks' => @item.track_items.map{|x| { :color => x.color, :name => x.name, :url => track_gpx_path(@item, :id => x.id) } }.to_json.html_safe }
+#legend
+  .info
+    %h4= @item.name
+    .legend_text= @item.descr.html_safe
+    .legend_items
+      - @item.track_items.each do |item|
+        .legend_row
+          .legend_item.color
+            %div{:style => "background-color: #{item.color}"}
+          .legend_item
+            = item.name

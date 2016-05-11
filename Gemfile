@@ -60,3 +60,4 @@ gem 'lib_support', :git => 'git://github.com/yamax2/lib_support.git', :branch =>
 gem 'kaminari', :git => 'git://github.com/amatsuda/kaminari.git', :branch => 'master'
 gem 'gretel', :git => 'git://github.com/craig1410/gretel.git', :branch => 'dep_alias_method_chain'
 gem 'jquery-simplecolorpicker-rails'
+gem 'leaflet-rails'

@@ -1,8 +1,11 @@
+- map_view = content_for?(:map_view)
+- page_title = content_for(:page_title)
+
 !!!
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title= t('title')
+    %title= page_title ? "#{page_title} - #{t('title')}" : t('title')
     %meta{:charset => "UTF-8"}/
     %meta{:content => "IE=edge,chrome=1", "http-equiv" => "X-UA-Compatible"}/
     %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}/
@@ -11,11 +14,14 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track' => 'reload'
   %body
-    = render partial: 'layouts/nav'
-    .container{:role => 'main'}
-      .row
-        .col-lg-12
-          - if content_for? :title
-            %h1.page-header= yield :title
-          = breadcrumbs style: :bootstrap
+    - if map_view
       = yield
+    - else
+      = render partial: 'layouts/nav'
+      .container{:role => 'main'}
+        .row
+          .col-lg-12
+            - if content_for? :title
+              %h1.page-header= yield :title
+            = breadcrumbs style: :bootstrap
+        = yield

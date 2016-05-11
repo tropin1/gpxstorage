@@ -1,4 +1,4 @@
-= link_to '#', :class => 'btn btn-xs btn-primary btn-icon' do
+= link_to track_view_path(item), :class => 'btn btn-xs btn-primary btn-icon', :target => '_blank' do
   %i.fa.fa-map-marker{'title' => t('map_long')}
   %span= t('map')
 - if item.permit_modify?(controller.permission_params)

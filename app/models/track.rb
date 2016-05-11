@@ -3,7 +3,7 @@ class Track < ApplicationRecord
 
   include LibSupport::BaseObject
   belongs_to       :user
-  has_many         :track_items, -> { order(:created_at) }, foreign_key: :track_code
+  has_many         :track_items, -> { order(:name) }, foreign_key: :track_code
   strip_attributes :only => [:name, :descr]
   set_ref_columns  :name, :user_name, :public, :created_at
   set_form_columns :name, :descr, :public
@@ -62,7 +62,7 @@ class Track < ApplicationRecord
   end
 
   def pin_items
-    values = @items_cache
+    values = @items_cache || {}
     @items_cache = nil
 
     for_update = values.map{|x| x[:update_id] }.compact
