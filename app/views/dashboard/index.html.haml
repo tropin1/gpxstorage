@@ -2,4 +2,13 @@
   %video{'preload' => 'auto', 'autoplay' => '', 'loop' => ''}
     %source{'type' => 'video/mp4', 'src' => 'https://photo.mytm.tk/videos/out.mp4'}
   %div.info-block
-    %h1= t('title')
+.app-header
+  %h2= t('dashboard.title')
+  .travel-icons
+    = image_tag 'car.png'
+    = image_tag 'bike.png'
+    = image_tag 'walk.png'
+- if user_signed_in?
+  = link_to t('add_track'), new_track_path(current_user), :class => 'btn btn-lg btn-success'
+- else
+  = render partial: 'users/sessions/new'

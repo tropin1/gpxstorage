@@ -1,0 +1,44 @@
+@import 'bootstrap/variables';
+
+#overlay {
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 52px);
+  left: 0;
+  overflow: hidden;
+  z-index: -1;
+
+  > video {
+    min-height: 100%;
+    min-width: 100%;
+    position: fixed;
+    opacity: 0.7;
+    filter: sepia(0.5);
+    -webkit-filter: sepia(0.5);
+  }
+
+  .info-block {
+    position: absolute;
+  }
+}
+
+.app-header {
+  color: <%= Track::DEFAULT_COLOR %>;
+}
+
+.travel-icons {
+  display: block;
+  width: 100%;
+  img {
+    display: inline-block;
+    padding: 2em 1em 2em 0;
+    width: 10em;
+    height: auto;
+  }
+}
+
+@media (max-width: $screen-xs-max) {
+  .travel-icons img {
+    width: 5em;
+  }
+}

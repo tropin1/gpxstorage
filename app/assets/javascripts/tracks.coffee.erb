@@ -25,6 +25,15 @@ initMap = (tracks) ->
       map.fitBounds e.target.getBounds();
     ).addTo(map);
 
+  $('.hide-legend').click ->
+    toggleLegend false;
+    return;
+
+  $('.show-legend').click ->
+    toggleLegend true;
+    return;
+
+  toggleLegend(false) if $('body').innerWidth() < 768;
   return;
 
 prepareAddons = (parent) ->
@@ -65,6 +74,23 @@ prepareAddons = (parent) ->
         .simplecolorpicker
            theme: 'fontawesome';
 
+  return;
+
+toggleLegend = (value) ->
+  legend = $('#legend');
+
+  content = $('> *:not(.show-legend)', legend);
+  if value
+    legend.on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', ->
+       content.show();
+       $(@).unbind('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend');
+
+       return;
+    );
+  else
+    content.hide();
+
+  legend.toggleClass('hidden-legend', !value);
   return;
 
 uploadFiles = (files) ->
