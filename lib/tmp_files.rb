@@ -1,5 +1,25 @@
 module TmpFiles
   class << self
+    def pack(name, track_items)
+      dir = Rails.root.join('tmp', 'packs', SecureRandom.hex(26))
+      FileUtils::mkdir_p dir
+
+      files = []
+      track_items.each do |item|
+        fn = dir.join("#{Zaru.sanitize!(item.name)}.gpx")
+        File.write fn, item.data
+        files << fn
+      end
+
+      fn = "#{name}.7z"
+      system("cd #{dir} && 7za a \"#{fn}\" -mx9 #{files.map{|x| "\"#{x}\"" }.join(' ')}") || return
+
+      res = [ {:name => fn, :content => File.read(dir.join(fn))} ]
+      FileUtils::rm_rf dir
+
+      res
+    end
+
     def read(item_code)
       dir = Rails.root.join('tmp', 'tracks')
       fn = dir.join("#{item_code}.tmp")

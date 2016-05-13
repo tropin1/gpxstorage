@@ -10,9 +10,17 @@ class TracksController < RefsController
     redirect_to root_path unless @item.permit_modify?(permission_params)
   end
 
-  before_action :only => [:gpx, :view] do
+  before_action :only => [:gpx, :view, :download] do
     @item = resource.find_by_code(params[:track_code])
-    redirect_to root_path unless @item && @item.permit?(permission_params)
+
+    respond_to do |format|
+      format.js { render body: nil, status: :not_found }
+      format.html { redirect_to root_path }
+    end unless @item && @item.permit?(permission_params)
+  end
+
+  def download
+    UserMailer.delay.download_track current_user.id, @item.code
   end
 
   def gpx

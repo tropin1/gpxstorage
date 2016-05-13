@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160508150222) do
+ActiveRecord::Schema.define(version: 20160513080222) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,12 +28,13 @@ ActiveRecord::Schema.define(version: 20160508150222) do
   end
 
   create_table "track_items", force: :cascade do |t|
-    t.xml      "data",                   null: false
-    t.string   "color",      limit: 20,  null: false
-    t.string   "name",       limit: 255, null: false
-    t.string   "track_code", limit: 52,  null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.xml      "data",                                   null: false
+    t.string   "color",      limit: 20,                  null: false
+    t.string   "name",       limit: 255,                 null: false
+    t.string   "track_code", limit: 52,                  null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.decimal  "len",                    default: "0.0", null: false
     t.index ["track_code"], name: "index_track_items_on_track_code", using: :btree
   end
 
@@ -47,6 +48,7 @@ ActiveRecord::Schema.define(version: 20160508150222) do
     t.integer  "user_id"
     t.text     "descr"
     t.boolean  "public",                 default: true,                                         null: false
+    t.decimal  "len",                    default: "0.0",                                        null: false
     t.index ["code"], name: "index_tracks_on_code", unique: true, using: :btree
     t.index ["txt_index"], name: "index_tracks_on_txt_index", using: :gin
     t.index ["type"], name: "index_tracks_on_type", using: :btree
@@ -70,7 +72,10 @@ ActiveRecord::Schema.define(version: 20160508150222) do
     t.string   "provider",            limit: 100
     t.string   "uid",                 limit: 150
     t.boolean  "admin",                           default: false,                                 null: false
+    t.integer  "cc",                              default: 0,                                     null: false
+    t.integer  "following",                                                                                    array: true
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["following"], name: "index_users_on_following", using: :gin
     t.index ["name"], name: "index_users_on_name", using: :btree
     t.index ["txt_index"], name: "index_users_on_txt_index", using: :gin
     t.index ["type"], name: "index_users_on_type", using: :btree

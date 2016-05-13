@@ -62,3 +62,5 @@ gem 'gretel', :git => 'git://github.com/craig1410/gretel.git', :branch => 'dep_a
 gem 'jquery-simplecolorpicker-rails'
 gem 'leaflet-rails'
 gem 'omniauth-yandex'
+gem 'sidekiq'
+gem 'zaru'

@@ -16,5 +16,9 @@ module Gpxstorage
     config.time_zone = 'Asia/Yekaterinburg'
     config.i18n.enforce_available_locales = true
     config.i18n.default_locale = :ru
+    config.active_job.queue_adapter = :sidekiq
+
+    #config.middleware.delete Rack::Lock
+    config.redis_options = { url: 'unix:/var/run/redis/redis.sock', :db => 11 }
   end
 end

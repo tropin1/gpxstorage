@@ -1,6 +1,7 @@
 ru:
   add_track: "Загрузить трек"
   color_select: "Выбрать цвет маркера"
+  download: "Скачать"
   drop_here: "Перетащите сюда gpx-файлы"
   goto_tracks: "Перейти (%{cc})"
   hide_legend: "Скрыть легенду"
@@ -18,6 +19,13 @@ ru:
     title: "Простое приложение для хранения и отображения gpx-треков"
     gpx_text: "Описание формата GPX"
     gpx_url: "https://ru.wikipedia.org/wiki/GPX"
+  mailer:
+    auto_mail: "Это автоматическое письмо, отвечать на него не нужно"
+    new_user:
+      subj: "Новый пользователь"
+      text: "Зарегистрирован новый пользователь"
+    sended: "gpx-файлы пакета отправлены Вам на почту"
+    track_data: "Данные для трека %{name}"
   activerecord:
      attributes:
         track:

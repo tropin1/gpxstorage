@@ -22,8 +22,7 @@
               %li= link_to t('my_tracks'), user_tracks_path(current_user)
               %li.divider
               %li= link_to t('sign_out'), destroy_user_session_path, :method => :delete
-      - if user_signed_in? && current_user.admin?
-        %ul.nav.navbar-nav
-          %li= link_to User.model_name.human(:count => 2), users_path
+      %ul.nav.navbar-nav
+        %li= link_to User.model_name.human(:count => 2), users_path
       %ul.nav.navbar-nav
         %li= link_to Track.model_name.human(:count => 2), tracks_path

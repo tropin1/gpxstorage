@@ -6,3 +6,8 @@
       /* Email styles need to be inline */
   %body
     = yield
+    %p= link_to t('title'), root_url, :style => 'margin-top: 1em; font-size: 18px'
+  %hr{:style => 'border-top: none; border-bottom: 1px solid #c3c6c9'}
+  %div{:style => 'font-size: 12px; color: gray'}
+    %p{:style => 'margin: 0; margin-top: 10px;'}= t('mailer.auto_mail')
+    %p{:style => 'margin-bottom: 0; margin-top: 3px;'}= Time.now.to_s

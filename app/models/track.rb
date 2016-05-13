@@ -16,7 +16,12 @@ class Track < ApplicationRecord
   validates   :public, :inclusion => { :in => [true, false] }
 
   after_initialize { self.code ||= SecureRandom.hex(26) }
-  after_save  :pin_items
+  after_save       :pin_items
+  after_commit     { user.refresh_cache }
+
+  def get_data
+    TmpFiles.pack name, track_items
+  end
 
   def permit?(*opts)
     user = Permissions.extract_user(*opts)

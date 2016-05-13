@@ -1,4 +1,9 @@
 class @GpxSupport extends @LibSupport
+  indexList: (type, items_html, paginator_html) ->
+    super(type, items_html, paginator_html);
+    @findTable(type).trigger('gpx.list-ready');
+    return;
+
   prepareIndexLists: ->
     super();
 

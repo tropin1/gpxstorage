@@ -143,6 +143,18 @@ uploadFiles = (files) ->
   return;
 
 document.addEventListener 'turbolinks:load', ->
+
+  libSupport.findTable('track').on('gpx.list-ready', ->
+     $('.btn-track-download', @).click ->
+       $.ajax "/tracks/#{$(@).closest('tr').data('id')}/download",
+          success: -> alert '<%= I18n.t('mailer.sended') %>';
+          error: GpxSupport.showErrorStatus;
+
+       false;
+
+     return;
+  );
+
   map = $('#map');
   initMap(map.data('tracks') || []) if map.length > 0;
 

@@ -16,6 +16,7 @@ class User < ApplicationRecord
   paginates_per 10
 
   has_many :tracks
+  after_commit(:on => :create) { UserMailer.delay.new_user(id) }
 
   def self.find_for_oauth2(access_token, signed_in_resource = nil)
     data = access_token.info
@@ -31,6 +32,10 @@ class User < ApplicationRecord
   def permit_modify?(*opts)
     user = opts.extract_options!.dup[:user]
     user && ( user.admin? || user.get_id == get_id)
+  end
+
+  def refresh_cache
+    update :cc => tracks.count
   end
 
 end
