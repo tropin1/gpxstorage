@@ -16,6 +16,15 @@ GIT
       rails (>= 3.2.0)
 
 GIT
+  remote: git://github.com/yamax2/gpx.git
+  revision: c103e0dcd8de4563b3fc89c4ee753d53e982792e
+  branch: master
+  specs:
+    gpx (0.8.2)
+      nokogiri
+      rake
+
+GIT
   remote: git://github.com/yamax2/lib_support.git
   revision: 42f406de7fbf6881c653e9d03cf93b8a600e96c9
   branch: master
@@ -266,6 +275,7 @@ DEPENDENCIES
   devise
   devise-i18n
   font-awesome-rails
+  gpx!
   gretel!
   haml-rails
   jbuilder (~> 2.0)

@@ -5,6 +5,7 @@ ru:
   drop_here: "Перетащите сюда gpx-файлы"
   goto_tracks: "Перейти (%{cc})"
   hide_legend: "Скрыть легенду"
+  km: "км."
   map: "Карта"
   map_long: "Показать на карте"
   my_tracks: "Мои треки"
@@ -31,6 +32,7 @@ ru:
         track:
             created_at: "Добавлен"
             descr: "Описание"
+            len: "Расстояние, км."
             name: "Название"
             items: "gpx файлы"
             public: "Общедоступный"

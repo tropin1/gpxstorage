@@ -1,6 +1,6 @@
 - content_for :map_view, true
 - content_for :page_title, @item.name
-#map{'data-tracks' => @item.track_items.map{|x| { :color => x.color, :name => x.name, :url => track_gpx_path(@item, :id => x.id) } }.to_json.html_safe }
+#map{'data-tracks' => @item.track_items.map{|x| { :id => x.id, :color => x.color, :name => x.name, :url => track_gpx_path(@item, :id => x.id) } }.to_json.html_safe }
 #legend
   .show-legend{:title => t('show_legend')}
     %i.fa.fa-info-circle
@@ -12,7 +12,9 @@
   .legend_items
     - @item.track_items.each do |item|
       .legend_row
+        .legend_item.item-checkbox
+          = check_box_tag "item[#{item.id}]", nil, true, :'data-id' => item.id
         .legend_item.color
           %div{:style => "background-color: #{item.color}"}
         .legend_item
-          = item.name
+          = "#{item.name} (#{item.len} #{t('km')})"

@@ -160,6 +160,8 @@
           > div { min-height: 1.5em; }
         }
 
+        &.item-checkbox { padding-right: 0.5em }
+
         &:last-child {
           padding-left: 0.5em
         }
@@ -168,10 +170,19 @@
   }
 }
 
+.lib-support-list[data-type="track"] {
+  td, th {
+    &[data-column-name="len"] {
+      text-align: right;
+      padding-right: 1.5em;
+    }
+  }
+}
+
 @media (max-width: $screen-xs-max) {
   .lib-support-list[data-type="track"] {
     td, th {
-      &[data-column-name="public"], &[data-column-name="created_at"] { display: none }
+      &[data-column-name="len"], &[data-column-name="created_at"] { display: none }
     }
   }
 

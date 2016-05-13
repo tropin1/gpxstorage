@@ -6,8 +6,7 @@ class AddNewFields < ActiveRecord::Migration[5.0]
     add_column :users, :following, :integer, array: true
     add_index :users, :following, using: :gin
 
-    User.all.each do |user|
-      user.update :cc => user.tracks.count
-    end
+    User.all.each {|user| user.update :cc => user.tracks.count }
+    Track.all.each {|track| track.calc_distances! }
   end
 end

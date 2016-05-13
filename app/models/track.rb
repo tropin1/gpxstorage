@@ -2,10 +2,12 @@ class Track < ApplicationRecord
   DEFAULT_COLOR = 'dodgerblue'
 
   include LibSupport::BaseObject
+  include TrackLen
+
   belongs_to       :user
   has_many         :track_items, -> { order(:name) }, foreign_key: :track_code
   strip_attributes :only => [:name, :descr]
-  set_ref_columns  :name, :user_name, :public, :created_at
+  set_ref_columns  :name, :user_name, :len, :created_at
   set_form_columns :name, :descr, :public
   set_id_column    :code
   paginates_per 20
@@ -18,6 +20,25 @@ class Track < ApplicationRecord
   after_initialize { self.code ||= SecureRandom.hex(26) }
   after_save       :pin_items
   after_commit     { user.refresh_cache }
+  after_commit(on: [:create, :update]) { TrackWorker.perform_async(code) unless @lock }  # to calc all distances
+
+  def calc_distances!
+    ar = []
+
+    track_items.map do |item|
+      file = GPX::GPXFile.new(:gpx_data => item.data)
+
+      item.update :len => file.distance
+      ar << item.len
+    end
+
+    @lock = true
+    begin
+      update :len => ar.sum
+    ensure
+      @lock = nil
+    end
+  end
 
   def get_data
     TmpFiles.pack name, track_items
@@ -67,7 +88,9 @@ class Track < ApplicationRecord
   end
 
   def pin_items
-    values = @items_cache || {}
+    return unless @items_cache
+
+    values = @items_cache
     @items_cache = nil
 
     for_update = values.map{|x| x[:update_id] }.compact

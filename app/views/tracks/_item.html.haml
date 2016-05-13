@@ -5,8 +5,6 @@
   - controller.resource.ref_columns.each do |col|
     - if col == :user_name
       %td{'data-column-name' => col}= link_to item.ref_column_value(col), user_path(item.user)
-    - elsif col == :public
-      %td{'data-column-name' => col}= check_box_tag nil, nil, item.public, :disabled => true
     - else
       %td{'data-column-name' => col}= item.ref_column_value col
   %td.mx-ref-buttons

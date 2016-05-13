@@ -2,28 +2,31 @@ $btn = undefined;
 $panel = undefined;
 $uploading = 0;
 $uploaded = 0;
+$map = undefined;
 
-initMap = (tracks) ->
-  map = new L.Map('map');
+initMap = ->
+  $map.remove() if $map;
+  $map = new L.Map('map').setView([56.51, 60.36], 13);
 
-  $('html,body').css('height', '100%');
   #osmUrl = 'https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png';
   osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
   osm = new L.TileLayer(osmUrl);
-  map.addLayer(osm);
+  $map.addLayer(osm);
 
-  for track in tracks
-    new L.GPX(track.url,
-          async: true,
-          marker_options:
-            startIconUrl: '/pin-icon-start.png',
-            endIconUrl: '/pin-icon-end.png',
-            shadowUrl: '/pin-shadow.png'
-          polyline_options:
-            color: track.color
-    ).on('loaded', (e) ->
-      map.fitBounds e.target.getBounds();
-    ).addTo(map);
+  for track in $('#map').data('tracks') || []
+    continue unless $("#legend input[data-id=\"#{track.id}\"]:checked").length > 0;
+
+    item = new L.GPX(track.url,
+                        async: true,
+                        marker_options:
+                          startIconUrl: '/pin-icon-start.png',
+                          endIconUrl: '/pin-icon-end.png',
+                          shadowUrl: '/pin-shadow.png'
+                        polyline_options:
+                          color: track.color);
+    item
+      .on('loaded', (e) -> $map.fitBounds e.target.getBounds())
+      .addTo($map);
 
   $('.hide-legend').click ->
     toggleLegend false;
@@ -143,6 +146,7 @@ uploadFiles = (files) ->
   return;
 
 document.addEventListener 'turbolinks:load', ->
+  $('html,body').css('height', '100%');
 
   libSupport.findTable('track').on('gpx.list-ready', ->
      $('.btn-track-download', @).click ->
@@ -155,8 +159,9 @@ document.addEventListener 'turbolinks:load', ->
      return;
   );
 
-  map = $('#map');
-  initMap(map.data('tracks') || []) if map.length > 0;
+  if $('#map').length > 0
+    initMap();
+    $('#legend input[data-id]').change initMap;
 
   form = $('form[data-type="track"]');
   return unless form.length > 0;
