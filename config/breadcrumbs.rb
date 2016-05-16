@@ -2,14 +2,15 @@ crumb :root do
   link t('title'), root_path
 end
 
-[User, Track].each do |klass|
+[User, Track, Layer].each do |klass|
   crumb klass.pl_name do
     link klass.model_name.human(:count => 2), send("#{klass.pl_name}_path")
   end
-end
 
-crumb :user do |item|
-  link item.name, user_path(item)
+  crumb klass.sm_name do |item|
+    link item.name || t('lib_support.refs.new'), item.new_record? ? nil : send("#{klass.sm_name}_path", item)
+    parent klass.pl_name
+  end unless klass.sm_name == :track
 end
 
 crumb :user_tracks do |user|

@@ -16,6 +16,6 @@
 //= require bootstrap-sprockets
 //= require jquery.simplecolorpicker
 //= require lib_support
-//= require leaflet
-//= require gpx
+// require leaflet
+// require gpx
 //= require_tree .

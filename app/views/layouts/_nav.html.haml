@@ -24,5 +24,8 @@
               %li= link_to t('sign_out'), destroy_user_session_path, :method => :delete
       %ul.nav.navbar-nav
         %li= link_to User.model_name.human(:count => 2), users_path
+      - if user_signed_in? && current_user.admin?
+        %ul.nav.navbar-nav
+          %li= link_to Layer.model_name.human(:count => 2), layers_path
       %ul.nav.navbar-nav
         %li= link_to Track.model_name.human(:count => 2), tracks_path

@@ -1,5 +1,6 @@
 ru:
   add_track: "Загрузить трек"
+  cannot_remove: "Невозможно удалить выбранный объект"
   color_select: "Выбрать цвет маркера"
   download: "Скачать"
   drop_here: "Перетащите сюда gpx-файлы"
@@ -27,11 +28,18 @@ ru:
       text: "Зарегистрирован новый пользователь"
     sended: "gpx-файлы пакета отправлены Вам на почту"
     track_data: "Данные для трека %{name}"
+  layer:
+    bike: "Для велосипедистов"
+    standard: "Стандартный"
   activerecord:
      attributes:
+        layer:
+            name: "Название"
+            url: "url"
         track:
             created_at: "Добавлен"
             descr: "Описание"
+            layer: "Слой карты"
             len: "Расстояние, км."
             name: "Название"
             items: "gpx файлы"
@@ -43,6 +51,11 @@ ru:
             name: "Имя"
             tracks: "Треки пользователя"
      models:
+        layer:
+          one: "Слой карты"
+          few: "Слои карты"
+          many: "Слои карты"
+          other: "Слои карты"
         track:
           one: "Трек"
           few: "Треки"

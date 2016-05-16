@@ -1,10 +1,13 @@
 class UsersController < RefsController
   resource_type User
-  ref_options_set :ref_actions => [:index, :show, :remove, :index_items, :update], :url_scope => '/admin'
+  ref_options_set :ref_actions => [:index, :show, :remove, :index_items, :update]
 
   before_action :authenticate_user!, :except => [:show, :index, :index_items]
-  before_action(:except => [:show, :update, :index, :index_items]) do
-    redirect_to root_path unless current_user.admin?
+  before_action(:only => [:remove]) do
+    respond_to do |format|
+      format.js { render body: nil, status: :not_found }
+      format.html { redirect_to root_path }
+    end unless current_user.admin?
   end
 
   protected

@@ -8,8 +8,7 @@ initMap = ->
   $map.remove() if $map;
   $map = new L.Map('map').setView([56.51, 60.36], 13);
 
-  #osmUrl = 'https://{s}.tile.thunderforest.com/cycle/{z}/{x}/{y}.png';
-  osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+  osmUrl = $('#map').data('url') || 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
   osm = new L.TileLayer(osmUrl);
   $map.addLayer(osm);
 
@@ -118,7 +117,7 @@ uploadFiles = (files) ->
       contentType: 'application/octet-stream'
       cache: false
       processData: false
-      error: GpxSupport.showErrorStatus;
+      error: GpxSupport.showErrorStatus
       success: ( (result) ->
         html = $(result);
         form = $btn.closest('form');

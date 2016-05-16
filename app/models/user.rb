@@ -31,7 +31,7 @@ class User < ApplicationRecord
   # can change only yourself unless you're admin
   def permit_modify?(*opts)
     user = opts.extract_options!.dup[:user]
-    user && ( user.admin? || user.get_id == get_id)
+    user && (user.admin? || user.get_id == get_id)
   end
 
   def refresh_cache

@@ -17,12 +17,12 @@ Rails.application.routes.draw do
     get 'gpx'      => 'tracks#gpx', :as => :gpx
   end
 
-  ref_resources(:users, :only => [:show, :update]) do
+  ref_resources(:users) do
     ref_resources :tracks, :only => [:index, :index_items]
   end
 
   scope :admin do
-    ref_resources :users, :except => [:create, :new, :show, :update]
+    ref_resources :layers
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

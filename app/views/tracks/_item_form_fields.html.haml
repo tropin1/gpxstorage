@@ -5,6 +5,10 @@
   .col-md-10
     = form.text_area :descr, :class => 'form-control', :rows => 10, :disabled => !permit_modify, :style => 'resize: vertical'
 .form-group
+  = form.label :layer, :class => 'control-label col-md-2'
+  .col-md-10
+    = form.collection_select :layer_id, Layer.all, :id, :name, {}, :class => 'form-control'
+.form-group
   .col-md-offset-2.col-xs-10
     .checkbox
       %label

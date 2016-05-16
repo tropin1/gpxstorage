@@ -5,7 +5,8 @@ class Track < ApplicationRecord
   include TrackLen
 
   belongs_to       :user
-  has_many         :track_items, -> { order(:name) }, foreign_key: :track_code
+  belongs_to       :layer
+  has_many         :track_items, -> { order(:name) }, foreign_key: :track_code, dependent: :destroy
   strip_attributes :only => [:name, :descr]
   set_ref_columns  :name, :user_name, :len, :created_at
   set_form_columns :name, :descr, :public
@@ -14,10 +15,11 @@ class Track < ApplicationRecord
 
   validates   :name, :presence => true, :length => { :maximum => 255 }
   validates   :code, :presence => true, :uniqueness => true
-  validates   :user, :presence => true
+  validates   :user, :layer, :presence => true
   validates   :public, :inclusion => { :in => [true, false] }
 
   after_initialize { self.code ||= SecureRandom.hex(26) }
+  set_default_value(:layer) { Layer.first }
   after_save       :pin_items
   after_commit     { user.refresh_cache }
   after_commit(on: [:create, :update]) { TrackWorker.perform_async(code) unless @lock }  # to calc all distances
@@ -33,11 +35,9 @@ class Track < ApplicationRecord
     end
 
     @lock = true
-    begin
-      update :len => ar.sum
-    ensure
-      @lock = nil
-    end
+    update :len => ar.sum
+  ensure
+    @lock = nil
   end
 
   def get_data

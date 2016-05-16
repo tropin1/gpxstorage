@@ -1,6 +1,8 @@
+= javascript_include_tag :leaflet, :gpx, :'data-turbolinks-track' => 'reload'
+= stylesheet_link_tag    :leaflet, media: 'all', :'data-turbolinks-track' => 'reload'
 - content_for :map_view, true
 - content_for :page_title, @item.name
-#map{'data-tracks' => @item.track_items.map{|x| { :id => x.id, :color => x.color, :name => x.name, :url => track_gpx_path(@item, :id => x.id) } }.to_json.html_safe }
+#map{:'data-url' => @item.layer.url, :'data-tracks' => @item.track_items.map{|x| { :id => x.id, :color => x.color, :name => x.name, :url => track_gpx_path(@item, :id => x.id) } }.to_json.html_safe }
 #legend
   .show-legend{:title => t('show_legend')}
     %i.fa.fa-info-circle

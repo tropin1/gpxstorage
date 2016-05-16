@@ -56,7 +56,7 @@ class TracksController < RefsController
   protected
 
   def resource_params
-    params.require(resource.sm_name).permit(:name, :descr, :public, :track_items => [:name, :code, :color, :update_id])
+    params.require(resource.sm_name).permit(:name, :descr, :public, :layer_id, :track_items => [:name, :code, :color, :update_id])
   end
 
   def update_resource(options = {})
