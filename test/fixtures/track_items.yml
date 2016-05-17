@@ -1,11 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  data: 
-  color: MyString
-  name: MyString
-
-two:
-  data: 
-  color: MyString
-  name: MyString
+#one:
+#  data:
+#  color: MyString
+#  name: MyString

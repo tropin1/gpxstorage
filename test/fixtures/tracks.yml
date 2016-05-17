@@ -1,11 +1,29 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  code: MyString
-  name: MyString
-  descr: MyText
+public_user_track:
+  code: public_user_track
+  public: true
+  name: public user track
+  user: user
+  layer: layer
 
-two:
-  code: MyString
-  name: MyString
-  descr: MyText
+private_user_track:
+  code: private_user_track
+  public: false
+  name: private user track
+  user: user
+  layer: layer
+
+public_admin_track:
+  code: public_admin_track
+  public: true
+  name: public admin track
+  user: admin
+  layer: layer
+
+private_admin_track:
+  code: private_admin_track
+  public: false
+  name: private admin track
+  user: admin
+  layer: layer

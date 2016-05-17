@@ -3,7 +3,7 @@ class LayersController < RefsController
   ref_options_set :url_scope => '/admin'
 
   before_action :authenticate_user!
-  before_filter { forbidden_place unless current_user.admin? }
+  before_action { forbidden_place unless current_user.admin? }
 
   protected
 

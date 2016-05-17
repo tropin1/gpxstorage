@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 20160516091327) do
     t.text     "descr"
     t.boolean  "public",                 default: true,                                         null: false
     t.decimal  "len",                    default: "0.0",                                        null: false
-    t.integer  "layer_id",               default: 59,                                           null: false
+    t.integer  "layer_id",               default: 1,                                            null: false
     t.index ["code"], name: "index_tracks_on_code", unique: true, using: :btree
     t.index ["layer_id"], name: "index_tracks_on_layer_id", using: :btree
     t.index ["txt_index"], name: "index_tracks_on_txt_index", using: :gin
