@@ -11,7 +11,7 @@ module TmpFiles
         files << fn
       end
 
-      fn = "#{name}.7z"
+      fn = "#{Zaru.sanitize!(name)}.7z"
       system("cd #{dir} && 7za a \"#{fn}\" -mx9 #{files.map{|x| "\"#{x}\"" }.join(' ')}") || return
 
       res = [ {:name => fn, :content => File.read(dir.join(fn))} ]

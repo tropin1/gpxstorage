@@ -3,12 +3,7 @@ class LayersController < RefsController
   ref_options_set :url_scope => '/admin'
 
   before_action :authenticate_user!
-  before_filter do
-    respond_to do |format|
-      format.js { render body: nil, status: :not_found }
-      format.html { redirect_to root_path }
-    end unless current_user.admin?
-  end
+  before_filter { forbidden_place unless current_user.admin? }
 
   protected
 

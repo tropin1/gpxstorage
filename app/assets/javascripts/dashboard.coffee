@@ -2,6 +2,7 @@ class @GpxSupport extends @LibSupport
   indexList: (type, items_html, paginator_html) ->
     super(type, items_html, paginator_html);
     @findTable(type).trigger('gpx.list-ready');
+
     return;
 
   prepareIndexLists: ->
@@ -42,5 +43,9 @@ class @GpxSupport extends @LibSupport
 document.addEventListener 'turbolinks:load', ->
   libSupport.prepareIndexLists();
   $('.navbar-fixed-top[role="navigation"]').toggleClass('start-page', $('#overlay').length > 0);
+
+  $('#search_form').on('submit', ->
+    return false unless $('input[type="text"]', @).val().toString().length > 0;
+  );
 
   return;

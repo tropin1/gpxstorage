@@ -8,4 +8,4 @@ ru:
         new: "Добавить"
         remove: "Удалить"
         remove_confirm: "Следующие %{name} будут удалены"
-
+        search: "Поиск..."

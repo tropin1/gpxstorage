@@ -1,4 +1,4 @@
-class Layer < ApplicationRecord
+class Layer < ActiveRecord::Base
   include LibSupport::BaseObject
 
   validates :name, :presence => true, :length => { :maximum => 50 }

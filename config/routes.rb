@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root 'dashboard#index'
 
+  post 'search' => 'dashboard#search'
   devise_for :users, path: 'users', path_names: { sign_in: 'login', sign_out: 'logout' },
              controllers: {
                 sessions: 'users/sessions',

@@ -12,11 +12,7 @@ class TracksController < RefsController
 
   before_action :only => [:gpx, :view, :download] do
     @item = resource.find_by_code(params[:track_code])
-
-    respond_to do |format|
-      format.js { render body: nil, status: :not_found }
-      format.html { redirect_to root_path }
-    end unless @item && @item.permit?(permission_params)
+    forbidden_place unless @item && @item.permit?(permission_params)
   end
 
   def download

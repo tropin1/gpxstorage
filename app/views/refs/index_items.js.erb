@@ -1,0 +1,8 @@
+<% par = {} %>
+<% par[:text] = @text unless @text.to_s.empty? %>
+
+libSupport.indexList(
+  '<%= controller.resource.sm_name %>',
+  '<%= @items.map{|item| j(render partial: 'item', :locals => { :item => item }) }.join.html_safe %>',
+  '<%= j(paginate @items, :remote => true, :params => par ).html_safe %>'
+);

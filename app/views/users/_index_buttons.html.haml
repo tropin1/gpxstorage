@@ -1,5 +1,6 @@
 - if user_signed_in?
   .row
     .col-md-12
-      - if current_user.admin?
-        %button.btn.btn-sm.btn-danger{'data-action' => 'remove', 'data-type' => name, :disabled => 'disabled'}= t('lib_support.refs.remove')
+      .form-group
+        - if current_user.admin?
+          %button.btn.btn-sm.btn-danger{'data-action' => 'remove', 'data-type' => name, :disabled => 'disabled'}= t('lib_support.refs.remove')

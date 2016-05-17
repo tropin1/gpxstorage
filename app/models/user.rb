@@ -1,4 +1,4 @@
-class User < ApplicationRecord
+class User < ActiveRecord::Base
   include LibSupport::BaseObject
 
   # Include default devise modules. Others available are:
@@ -13,7 +13,7 @@ class User < ApplicationRecord
   strip_attributes :only => [:name, :email]
   set_ref_columns  :name, :email
   set_form_columns :name, :admin
-  paginates_per 10
+  paginates_per    10
 
   has_many :tracks
   after_commit(:on => :create) { UserMailer.delay.new_user(id) }

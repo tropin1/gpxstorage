@@ -90,6 +90,10 @@ body {
   margin: 0 0.5em 0.5em 0;
 }
 
+.lib-support-list {
+  td, th { word-break: break-all }
+}
+
 @media (max-width: $screen-xs-max) {
   .btn-sign-in { font-size: 14px }
 

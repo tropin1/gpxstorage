@@ -3,12 +3,7 @@ class UsersController < RefsController
   ref_options_set :ref_actions => [:index, :show, :remove, :index_items, :update]
 
   before_action :authenticate_user!, :except => [:show, :index, :index_items]
-  before_action(:only => [:remove]) do
-    respond_to do |format|
-      format.js { render body: nil, status: :not_found }
-      format.html { redirect_to root_path }
-    end unless current_user.admin?
-  end
+  before_action(:only => [:remove]) { forbidden_place unless current_user.admin? }
 
   protected
 

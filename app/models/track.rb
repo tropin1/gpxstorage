@@ -1,4 +1,4 @@
-class Track < ApplicationRecord
+class Track < ActiveRecord::Base
   DEFAULT_COLOR = 'dodgerblue'
 
   include LibSupport::BaseObject
@@ -11,15 +11,16 @@ class Track < ApplicationRecord
   set_ref_columns  :name, :user_name, :len, :created_at
   set_form_columns :name, :descr, :public
   set_id_column    :code
-  paginates_per 20
+  paginates_per    10
 
   validates   :name, :presence => true, :length => { :maximum => 255 }
   validates   :code, :presence => true, :uniqueness => true
   validates   :user, :layer, :presence => true
   validates   :public, :inclusion => { :in => [true, false] }
 
-  after_initialize { self.code ||= SecureRandom.hex(26) }
   set_default_value(:layer) { Layer.first }
+  set_default_value(:code) { SecureRandom.hex(26) }
+
   after_save       :pin_items
   after_commit     { user.refresh_cache }
   after_commit(on: [:create, :update]) { TrackWorker.perform_async(code) unless @lock }  # to calc all distances
