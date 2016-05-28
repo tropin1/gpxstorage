@@ -7,7 +7,7 @@ class TracksController < RefsController
   end
 
   before_action :only => [:show] do
-    redirect_to root_path unless @item.permit_modify?(permission_params)
+    redirect_to root_path unless @item && @item.permit_modify?(permission_params)
   end
 
   before_action :only => [:gpx, :view, :download] do

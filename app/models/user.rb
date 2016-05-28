@@ -1,8 +1,7 @@
 class User < ActiveRecord::Base
   include LibSupport::BaseObject
-
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable, :recoverable, :validatable, :registerable
+  include Attachment::Attachable
+  include Attachment::Avatar
 
   devise      :database_authenticatable, :rememberable, :trackable,
               :omniauthable, :omniauth_providers => [:google_oauth2, :yandex]
@@ -30,7 +29,7 @@ class User < ActiveRecord::Base
 
   # can change only yourself unless you're admin
   def permit_modify?(*opts)
-    user = opts.extract_options!.dup[:user]
+    user = Permissions.extract_user(*opts)
     user && (user.admin? || user.get_id == get_id)
   end
 

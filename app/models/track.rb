@@ -19,7 +19,7 @@ class Track < ActiveRecord::Base
   validates   :public, :inclusion => { :in => [true, false] }
 
   set_default_value(:layer) { Layer.first }
-  set_default_value(:code) { SecureRandom.hex(26) }
+  set_default_value(:code) { TmpFiles::gen_hex }
 
   after_save       :pin_items
   after_commit     { user.refresh_cache }

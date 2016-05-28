@@ -11,12 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160516091327) do
+ActiveRecord::Schema.define(version: 20160521212016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "pg_trgm"
   enable_extension "unaccent"
+
+  create_table "attaches", force: :cascade do |t|
+    t.text     "filename",                                    null: false
+    t.text     "filename_storage",                            null: false
+    t.string   "attachable_type"
+    t.integer  "attachable_id"
+    t.string   "code",             limit: 52,                 null: false
+    t.boolean  "img",                         default: false, null: false
+    t.boolean  "temporary",                   default: true,  null: false
+    t.integer  "user_id",                                     null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
+    t.index ["attachable_type", "attachable_id"], name: "index_attaches_on_attachable_type_and_attachable_id", using: :btree
+    t.index ["code"], name: "index_attaches_on_code", unique: true, using: :btree
+    t.index ["user_id"], name: "index_attaches_on_user_id", using: :btree
+  end
 
   create_table "layers", id: :integer, default: -> { "nextval('objects_id_seq'::regclass)" }, force: :cascade do |t|
     t.tsvector "txt_index"
@@ -61,7 +77,7 @@ ActiveRecord::Schema.define(version: 20160516091327) do
     t.text     "descr"
     t.boolean  "public",                 default: true,                                         null: false
     t.decimal  "len",                    default: "0.0",                                        null: false
-    t.integer  "layer_id",               default: 1,                                            null: false
+    t.integer  "layer_id",               default: 59,                                           null: false
     t.index ["code"], name: "index_tracks_on_code", unique: true, using: :btree
     t.index ["layer_id"], name: "index_tracks_on_layer_id", using: :btree
     t.index ["txt_index"], name: "index_tracks_on_txt_index", using: :gin
@@ -95,6 +111,7 @@ ActiveRecord::Schema.define(version: 20160516091327) do
     t.index ["type"], name: "index_users_on_type", using: :btree
   end
 
+  add_foreign_key "attaches", "users", on_update: :cascade, on_delete: :restrict
   add_foreign_key "track_items", "tracks", column: "track_code", primary_key: "code", on_update: :cascade, on_delete: :cascade
   add_foreign_key "tracks", "layers", on_update: :cascade, on_delete: :restrict
   add_foreign_key "tracks", "users", on_update: :cascade, on_delete: :cascade

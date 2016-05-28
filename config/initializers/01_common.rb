@@ -32,4 +32,8 @@ Rails.application.configure do
   }
 =end
 
+  config.attaches_path = Rails.root.join('public', 'files')
+
+  config.attaches_url = nil  # nil attaches url means default folder /public/files
+
 end

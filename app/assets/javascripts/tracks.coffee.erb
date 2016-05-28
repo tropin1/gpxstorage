@@ -1,19 +1,19 @@
-$btn = undefined;
-$panel = undefined;
-$uploading = 0;
-$uploaded = 0;
-$map = undefined;
+$btn = undefined
+$panel = undefined
+$uploading = 0
+$uploaded = 0
+$map = undefined
 
 initMap = ->
-  $map.remove() if $map;
-  $map = new L.Map('map').setView([56.51, 60.36], 13);
+  $map.remove() if $map
+  $map = new L.Map('map').setView([56.51, 60.36], 13)
 
-  osmUrl = $('#map').data('url') || 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-  osm = new L.TileLayer(osmUrl);
-  $map.addLayer(osm);
+  osmUrl = $('#map').data('url') || 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+  osm = new L.TileLayer(osmUrl)
+  $map.addLayer(osm)
 
   for track in $('#map').data('tracks') || []
-    continue unless $("#legend input[data-id=\"#{track.id}\"]:checked").length > 0;
+    continue unless $("#legend input[data-id=\"#{track.id}\"]:checked").length > 0
 
     item = new L.GPX(track.url,
                         async: true,
@@ -22,45 +22,45 @@ initMap = ->
                           endIconUrl: '/pin-icon-end.png',
                           shadowUrl: '/pin-shadow.png'
                         polyline_options:
-                          color: track.color);
+                          color: track.color)
     item
       .on('loaded', (e) -> $map.fitBounds e.target.getBounds())
-      .addTo($map);
+      .addTo($map)
 
   $('.hide-legend').click ->
-    toggleLegend false;
-    return;
+    toggleLegend false
+    return
 
   $('.show-legend').click ->
-    toggleLegend true;
-    return;
+    toggleLegend true
+    return
 
-  toggleLegend(false) if $('body').innerWidth() < 768;
-  return;
+  toggleLegend(false) if $('body').innerWidth() < 768
+  return
 
 prepareAddons = (parent) ->
   $('.remove-addon:not([data-ready])', parent)
       .attr('data-ready', true)
       .click ->
-          item = $(@).closest('.gpx-track-item');
-          item.next().remove() for [1..2];
-          item.remove();
-          return;
+          item = $(@).closest('.gpx-track-item')
+          item.next().remove() for [1..2]
+          item.remove()
+          return
 
   $('.color-addon:not([data-ready])', parent)
       .attr('data-ready', true)
       .click ->
-          $(@).toggleClass('active').closest('.gpx-track-item').next().toggleClass('active');
-          return;
+          $(@).toggleClass('active').closest('.gpx-track-item').next().toggleClass('active')
+          return
 
   $('.gpx-track-item-color-marker:not([data-ready])', parent)
       .attr('data-ready', true)
       .click ->
-          item = $(@).prev();
-          item.toggleClass('active');
-          item.prev().find('.color-addon').toggleClass('active');
+          item = $(@).prev()
+          item.toggleClass('active')
+          item.prev().find('.color-addon').toggleClass('active')
 
-          return;
+          return
 
   $('.gpx-track-item-color-picker:not([data-ready])', parent)
       .attr('data-ready', true)
@@ -68,48 +68,48 @@ prepareAddons = (parent) ->
         .removeAttr('name')
         .removeAttr('id')
         .change ->
-           value = $(@).val();
-           item = $(@).closest('.gpx-track-item-color-picker');
-           item.next().css('background-color', value);
-           item.prev().find('input[data-field="color"]').val value;
-           return;
+           value = $(@).val()
+           item = $(@).closest('.gpx-track-item-color-picker')
+           item.next().css('background-color', value)
+           item.prev().find('input[data-field="color"]').val value
+           return
         .simplecolorpicker
-           theme: 'fontawesome';
+           theme: 'fontawesome'
 
-  return;
+  return
 
 toggleLegend = (value) ->
-  legend = $('#legend');
+  legend = $('#legend')
 
-  content = $('> *:not(.show-legend)', legend);
+  content = $('> *:not(.show-legend)', legend)
   if value
     legend.on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', ->
-       content.show();
-       $(@).unbind('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend');
+       content.show()
+       $(@).unbind('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend')
 
-       return;
-    );
+       return
+    )
   else
-    content.hide();
+    content.hide()
 
-  legend.toggleClass('hidden-legend', !value);
-  return;
+  legend.toggleClass('hidden-legend', !value)
+  return
 
 uploadFiles = (files) ->
-  $btn.addClass('active');
-  $panel.addClass('active');
+  $btn.addClass('active')
+  $panel.addClass('active')
 
   checkState = ->
     if $uploading <= 0
-      $btn.removeClass('active');
-      $panel.removeClass('active');
+      $btn.removeClass('active')
+      $panel.removeClass('active')
 
-    return;
+    return
 
   for file in files
     unless file.size <= <%= Rails.application.config.max_attach_size %>
-      checkState();
-      continue;
+      checkState()
+      continue
 
     $.ajax "/tracks/#{$panel.data('code')}/upload",
       type: 'PUT'
@@ -119,78 +119,78 @@ uploadFiles = (files) ->
       processData: false
       error: GpxSupport.showErrorStatus
       success: ( (result) ->
-        html = $(result);
-        form = $btn.closest('form');
+        html = $(result)
+        form = $btn.closest('form')
 
         $('input', html).removeAttr('id')
-        $('input[type="text"]', html).attr('name', "track[track_items][#{$uploaded}][name]").val(@);
-        $('input[data-field="code"]', html).attr('name', "track[track_items][#{$uploaded}][code]");
-        $('input[data-field="color"]', html).attr('name', "track[track_items][#{$uploaded}][color]");
-        $uploaded++;
+        $('input[type="text"]', html).attr('name', "track[track_items][#{$uploaded}][name]").val(@)
+        $('input[data-field="code"]', html).attr('name', "track[track_items][#{$uploaded}][code]")
+        $('input[data-field="color"]', html).attr('name', "track[track_items][#{$uploaded}][color]")
+        $uploaded++
 
-        $btn.before html;
-        prepareAddons form;
+        $btn.before html
+        prepareAddons form
 
-        return;
+        return
        ).bind(file.name)
       complete: ->
-        $uploading--;
-        checkState();
-        return;
+        $uploading--
+        checkState()
+        return
       xhr: ->
-        xhr = $.ajaxSettings.xhr();
-        xhr.onloadstart = -> $uploading++;
-        xhr;
+        xhr = $.ajaxSettings.xhr()
+        xhr.onloadstart = -> $uploading++
+        xhr
 
-  return;
+  return
 
 document.addEventListener 'turbolinks:load', ->
-  $('html,body').css('height', '100%');
+  $('html,body').css('height', '100%')
 
   libSupport.findTable('track').on('gpx.list-ready', ->
      $('.btn-track-download', @).click ->
        $.ajax "/tracks/#{$(@).closest('tr').data('id')}/download",
-          success: -> alert '<%= I18n.t('mailer.sended') %>';
-          error: GpxSupport.showErrorStatus;
+          success: -> alert '<%= I18n.t('mailer.sended') %>'
+          error: GpxSupport.showErrorStatus
 
-       false;
+       false
 
-     return;
-  );
+     return
+  )
 
   if $('#map').length > 0
-    initMap();
-    $('#legend input[data-id]').change initMap;
+    initMap()
+    $('#legend input[data-id]').change initMap
 
-  form = $('form[data-type="track"]');
-  return unless form.length > 0;
+  form = $('form[data-type="track"]')
+  return unless form.length > 0
 
-  $btn = $('.gpx-file-select', form);
-  $panel = $('.track-items-drop-here', form);
-  $uploading = 0;
-  $uploaded = $('.gpx-track-item', form).length;
-  prepareAddons form;
+  $btn = $('.gpx-file-select', form)
+  $panel = $('.track-items-drop-here', form)
+  $uploading = 0
+  $uploaded = $('.gpx-track-item', form).length
+  prepareAddons form
 
   $panel.on('drop', (e) ->
-     $(@).removeClass('dragging');
-     uploadFiles e.originalEvent.dataTransfer.files;
-     false;
+     $(@).removeClass('dragging')
+     uploadFiles e.originalEvent.dataTransfer.files
+     false
   ).on('dragover', -> false)
    .on('dragenter', ->
-     $(@).addClass('dragging');
-     false;
-  ).on('dragleave', (e) ->
-     $(@).removeClass('dragging');
+     $(@).addClass('dragging')
      false
-  );
+  ).on('dragleave', (e) ->
+     $(@).removeClass('dragging')
+     false
+  )
 
   $btn.click ->
-    $('#track_items_files').click() unless $(@).is('.active');
-    false;
+    $('#track_items_files').click() unless $(@).is('.active')
+    false
 
   $('#track_items_files').change ->
-    uploadFiles @.files;
-    $(@).val('');
-    return;
+    uploadFiles @.files
+    $(@).val('')
+    return
 
-  return;
+  return

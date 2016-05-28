@@ -1,7 +1,11 @@
 module TmpFiles
   class << self
+    def gen_hex
+      SecureRandom.hex(26)
+    end
+
     def pack(name, track_items)
-      dir = Rails.root.join('tmp', 'packs', SecureRandom.hex(26))
+      dir = Rails.root.join('tmp', 'packs', gen_hex)
       FileUtils::mkdir_p dir
 
       files = []
@@ -20,8 +24,8 @@ module TmpFiles
       res
     end
 
-    def read(item_code)
-      dir = Rails.root.join('tmp', 'tracks')
+    def read(item_code, folder = 'tracks')
+      dir = Rails.root.join('tmp', folder)
       fn = dir.join("#{item_code}.tmp")
 
       if File.exist?(fn) && (data = File.read(fn))
@@ -30,18 +34,12 @@ module TmpFiles
 
         data
       end
-    rescue
-      nil
     end
 
-    def upload(data)
-      fn, dir = SecureRandom.hex(26), Rails.root.join('tmp', 'tracks')
-      FileUtils::mkdir_p dir
-      File.open(dir.join("#{fn}.tmp"), 'wb') {|f| f.write data }
+    def upload(data, folder = 'tracks')
+      fn, dir = gen_hex, Rails.root.join('tmp', folder)
 
-      fn
-    rescue
-      nil
+      fn if FileUtils::mkdir_p(dir) && File.open(dir.join("#{fn}.tmp"), 'wb') {|f| f.write(data) }
     end
   end
 end
