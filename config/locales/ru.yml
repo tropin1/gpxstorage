@@ -47,6 +47,7 @@ ru:
             user_name: "Владелец"
         user:
             admin: "Администратор"
+            avatar: "Аватар"
             email: "email"
             name: "Имя"
             tracks: "Треки пользователя"

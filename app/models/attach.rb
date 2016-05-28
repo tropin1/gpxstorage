@@ -5,8 +5,6 @@ class Attach < ApplicationRecord
   validates      :code, uniqueness: true
   after_destroy  :remove_file
 
-  self.primary_key = :code
-
   class << self
     def add(filename, data, user)
       return unless data && filename && user

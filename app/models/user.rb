@@ -19,10 +19,11 @@ class User < ActiveRecord::Base
 
   def self.find_for_oauth2(access_token, signed_in_resource = nil)
     data = access_token.info
-    user = User.where(:provider => access_token.provider, :uid => access_token.uid ).first || \
+    user = User.where(:provider => access_token.provider, :uid => access_token.uid).first || \
            User.where(:email => access_token.info.email).first || \
            User.new(:password => Devise.friendly_token[0, 20])
 
+    user.load_avatar(access_token)
     user.update :name => data['name'], :provider => access_token.provider, :email => data['email'], :uid => access_token.uid
     user
   end
@@ -35,6 +36,25 @@ class User < ActiveRecord::Base
 
   def refresh_cache
     update :cc => tracks.count
+  end
+
+  def load_avatar(data)
+    img = nil
+
+    case data['provider']
+      when 'google_oauth2'
+        img = data['info']['image'].sub('s32-c', 's200-c')
+      when 'yandex'
+        img = "http://avatars.mds.yandex.net/get-yapic/#{data['extra']['raw_info']['default_avatar_id']}/islands-200"
+      else nil
+    end
+
+    return unless img
+    avatar.destroy if avatar
+
+    attach = Attach.add('avatar.jpg', Net::HTTP.get(URI(img)), self)
+    self.attaches = [ attach.code ]
+    self.avatar_code = attach.code
   end
 
 end

@@ -15,5 +15,11 @@ class CreateAttaches < ActiveRecord::Migration[5.0]
 
     add_foreign_key :attaches, :users, on_delete: :restrict, on_update: :cascade
     add_index       :attaches, :code, unique: true
+
+    change_table :users do |t|
+      t.references  :avatar, index: true, null: true
+    end
+
+    add_foreign_key :users, :attaches, column: :avatar_id, on_delete: :nullify, on_update: :cascade
   end
 end

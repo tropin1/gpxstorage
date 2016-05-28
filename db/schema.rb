@@ -104,6 +104,8 @@ ActiveRecord::Schema.define(version: 20160521212016) do
     t.boolean  "admin",                           default: false,                                 null: false
     t.integer  "cc",                              default: 0,                                     null: false
     t.integer  "following",                                                                                    array: true
+    t.integer  "avatar_id"
+    t.index ["avatar_id"], name: "index_users_on_avatar_id", using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["following"], name: "index_users_on_following", using: :gin
     t.index ["name"], name: "index_users_on_name", using: :btree
@@ -115,4 +117,5 @@ ActiveRecord::Schema.define(version: 20160521212016) do
   add_foreign_key "track_items", "tracks", column: "track_code", primary_key: "code", on_update: :cascade, on_delete: :cascade
   add_foreign_key "tracks", "layers", on_update: :cascade, on_delete: :restrict
   add_foreign_key "tracks", "users", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "users", "attaches", column: "avatar_id", on_update: :cascade, on_delete: :nullify
 end

@@ -94,7 +94,7 @@ body {
   td, th { word-break: break-all }
 }
 
-@media (max-width: $screen-xs-max) {
+@media (max-width: $screen-sm-max) {
   .btn-sign-in { font-size: 14px }
 
   .btn-icon {

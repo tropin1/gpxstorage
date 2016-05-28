@@ -8,8 +8,13 @@ module Attachment
       end
     end
 
+    def attaches_cached?
+      !@attach_cache.nil?
+    end
+
     def attaches=(value)
-      @attach_cache = value
+      @attach_cache ||= []
+      @attach_cache << value
     end
 
     def self.included(base)

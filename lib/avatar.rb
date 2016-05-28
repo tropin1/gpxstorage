@@ -16,16 +16,7 @@ module Attachment
       if value.to_s.empty? || value == 'empty'
         self.avatar = nil
       else
-        item = attachments.where(:code => value).first
-
-        unless item
-          item = Attachment.find_by_code(value)
-          raise "attachment #{value} already in use" unless item && item.attachable_id.nil?
-
-          self.attachments = [value]
-        end
-
-        self.avatar = item
+        self.avatar = Attach.find_by_code(value)
       end
     end
   end
