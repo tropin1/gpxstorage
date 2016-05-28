@@ -1,4 +1,4 @@
-v0.1.9
+v0.1.11
 
 ## gpx
 Rails5 test app
