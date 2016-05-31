@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   validates   :email, :presence => true, :uniqueness => true
 
   strip_attributes :only => [:name, :email]
-  set_ref_columns  :name, :email
+  set_ref_columns  :avatar, :name, :cc
   set_form_columns :name, :admin
   paginates_per    10
 
@@ -26,16 +26,6 @@ class User < ActiveRecord::Base
     user.load_avatar(access_token)
     user.update :name => data['name'], :provider => access_token.provider, :email => data['email'], :uid => access_token.uid
     user
-  end
-
-  # can change only yourself unless you're admin
-  def permit_modify?(*opts)
-    user = Permissions.extract_user(*opts)
-    user && (user.admin? || user.get_id == get_id)
-  end
-
-  def refresh_cache
-    update :cc => tracks.count
   end
 
   def load_avatar(data)
@@ -55,6 +45,16 @@ class User < ActiveRecord::Base
     attach = Attach.add('avatar.jpg', Net::HTTP.get(URI(img)), self)
     self.attaches = [ attach.code ]
     self.avatar_code = attach.code
+  end
+
+  # can change only yourself unless you're admin
+  def permit_modify?(*opts)
+    user = Permissions.extract_user(*opts)
+    user && (user.admin? || user.get_id == get_id)
+  end
+
+  def refresh_cache
+    update :cc => tracks.count
   end
 
 end

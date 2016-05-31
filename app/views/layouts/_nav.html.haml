@@ -1,36 +1,14 @@
-.navbar.navbar-fixed-top{:role => "navigation"}
-  .container
-    .navbar-header
-      %button.navbar-toggle{'data-target' => '.navbar-collapse', 'data-toggle' => 'collapse', :type => 'button'}
-        %span.sr-only= t('title')
-        %span.icon-bar
-        %span.icon-bar
-        %span.icon-bar
-      %a.navbar-brand{:href => "/"}= t('title')
-    .navbar-collapse.collapse
-      %ul.nav.navbar-nav.navbar-right
-        %li.dropdown
-          - if !user_signed_in?
-            = link_to t('sign_in'), new_user_session_path
-          - else
-            %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-              - if current_user.avatar
-                = image_tag current_user.avatar.url, :class => 'img-circle-avatar'
-              = current_user.name
-              %b.caret
-            %ul.dropdown-menu
-              %li= link_to t('profile'), user_path(current_user)
-              %li= link_to t('add_track'), new_track_path
-              %li= link_to t('my_tracks'), user_tracks_path(current_user)
-              %li.divider
-              %li= link_to t('sign_out'), destroy_user_session_path, :method => :delete
-      = form_tag search_path, :class => 'navbar-form navbar-right', :id => 'search_form' do
-        .form-group
-          = text_field_tag :search_text, nil, :class => 'form-control', :placeholder => t('lib_support.refs.search')
-      %ul.nav.navbar-nav
-        %li= link_to User.model_name.human(:count => 2), users_path
-      - if user_signed_in? && current_user.admin?
-        %ul.nav.navbar-nav
-          %li= link_to Layer.model_name.human(:count => 2), layers_path
-      %ul.nav.navbar-nav
-        %li= link_to Track.model_name.human(:count => 2), tracks_path
+#sidedrawer-brand.mui--appbar-line-height
+  = link_to root_path, :class => 'favicon' do
+    = image_tag '/favicon.ico'
+    = t('title')
+.mui-divider
+- if user_signed_in?
+  %ul
+    %li
+      %strong= I18n.t('profile')
+      %ul
+        %li= link_to t('profile'), user_path(current_user)
+        %li= link_to t('add_track'), new_track_path
+        %li= link_to t('my_tracks'), user_tracks_path(current_user)
+        %li= link_to t('sign_out'), destroy_user_session_path, :method => :delete

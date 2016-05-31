@@ -5,6 +5,12 @@ class UsersController < RefsController
   before_action :authenticate_user!, :except => [:show, :index, :index_items]
   before_action(:only => [:remove]) { forbidden_place unless current_user.admin? }
 
+  def index_items
+    super
+
+    @items = @items.reorder(:id)
+  end
+
   protected
 
   def permit_remove_objects?(list)

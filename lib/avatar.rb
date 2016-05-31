@@ -1,7 +1,7 @@
 module Attachment
   module Avatar
     def self.included(base)
-      base.belongs_to :avatar, dependent: :destroy, foreign_key: 'avatar_id', class_name: 'Attach'
+      base.belongs_to :avatar, dependent: :destroy, foreign_key: 'avatar_id', class_name: 'Attach', optional: true
     end
 
     def avatar_code

@@ -1,8 +1,7 @@
 - if user_signed_in?
-  .row
-    .col-md-12
-      .form-group
-        - if controller.ref_action?(:new)
-          = link_to t('lib_support.refs.new'), { :controller => controller_name, :action => 'new' }, :class => 'btn btn-sm btn-success'
-        - if controller.ref_action?(:remove)
-          %button.btn.btn-sm.btn-danger{'data-action' => 'remove', 'data-type' => name, :disabled => 'disabled'}= t('lib_support.refs.remove')
+  - if controller.ref_action?(:new)
+    = link_to url_for(:controller => controller_name, :action => 'new'), :class => 'mui-btn mui-btn--fab mui-btn--primary active' do
+      %i.fa.fa-plus
+  - if controller.ref_action?(:remove)
+    %a.mui-btn.mui-btn--fab.mui-btn--danger{'data-action' => 'remove', 'data-type' => name, :disabled => 'disabled', :title => t('lib_support.refs.remove')}
+      %i.fa.fa-times

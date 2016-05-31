@@ -1,5 +1,5 @@
 crumb :root do
-  link t('title'), root_path
+  link t('main_page'), root_path
 end
 
 [User, Track, Layer].each do |klass|

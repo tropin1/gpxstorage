@@ -1,3 +1,36 @@
 $focus_color: #f9f9f9;
+$mobile_width: 768px;
+$panel_width: 224px;
+
 $yandex_color: #ffdb4c;
-$yandex_text_color: black;
+$error_color: #F44336;
+
+$main_color: #78909C;
+$btn_radius: 30px;
+$side_drawer_toggle_color: #fff;
+$hover_menu_item_color: rgba(0,0,0,.27);
+$back_color: #fafafa;
+
+@mixin simple-button {
+  display: inline-block;
+  width: $btn_radius;
+  height: $btn_radius;
+  line-height: $btn_radius;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 50%;
+  text-decoration: none;
+  color: $side_drawer_toggle_color;
+  outline: none;
+
+  &:hover, &:focus, &:active {
+    background-color: $hover_menu_item_color;
+    text-decoration: none;
+    color: $side_drawer_toggle_color;
+  }
+
+  > .fa {
+    font-size: 20px;
+    line-height: $btn_radius;
+  }
+}

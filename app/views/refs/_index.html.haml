@@ -1,29 +1,29 @@
 - name = controller.resource.sm_name.to_s
-= render partial: 'index_buttons', :locals => { :name => name }
-.row
-  .col-md-12
-    .input-group
-      %input.form-control{:type => :text, :placeholder => t('lib_support.refs.search'), :'data-action' => :search, :'data-type' => name, :value => params[:text]}
-      %span.input-group-btn
-        %button.btn.btn-primary{:type => 'button'}
-          %i.fa.fa-search
-.row
-  .col-md-12
-    %div{:'data-role' => 'paginator', :'data-type' => name, :id => "#{name}_list_paginator"}
-.row
-  .col-md-12
-    %table.table.table-hover.lib-support-list{'data-role' => 'list', 'data-type' => name, 'data-url-scope' => controller.url_scope(:index_items), 'data-type-plural' => "#{controller.resource.pl_name}", :id => "#{name}_list"}
+.ref-action-buttons
+  = render partial: 'index_buttons', :locals => { :name => name }
+/.row
+/  .col-md-12
+/    .input-group
+/      %input.form-control{:type => :text, :placeholder => t('lib_support.refs.search'), :'data-action' => :search, :'data-type' => name, :value => params[:text]}
+/      %span.input-group-btn
+/        %button.btn.btn-primary{:type => 'button'}
+/          %i.fa.fa-search
+.mui-panel
+  .mui-col-sm-12
+    %table.mui-table.mui-table--bordered.lib-support-list{'data-role' => 'list', 'data-type' => name, 'data-url-scope' => controller.url_scope(:index_items), 'data-type-plural' => "#{controller.resource.pl_name}", :id => "#{name}_list"}
       %thead
         %tr
           %th.mx-selector-th
             %input{:'data-type' => name, :type => 'checkbox'}/
           - controller.resource.ref_columns.each do |column|
-            %th{:'data-column-name' => column}= controller.resource.human_attribute_name(column)
+            %th{'data-column-name' => column}= controller.resource.human_attribute_name(column)
           %th
       %tbody
-- if controller.ref_action?(:remove)
-  = render partial: 'remove_dialog', :locals => {                          |
-      :model => controller.resource.sm_name,                               |
-      :name => controller.resource.model_name.human(:count => 2),          |
-      :url => url_for(:controller => controller_name, :action => :remove)  |
-    }                                                                      |
+    .ref-next-page
+
+/- if controller.ref_action?(:remove)
+/  = render partial: 'remove_dialog', :locals => {                          |
+/      :model => controller.resource.sm_name,                               |
+/      :name => controller.resource.model_name.human(:count => 2),          |
+/      :url => url_for(:controller => controller_name, :action => :remove)  |
+/    }                                                                      |

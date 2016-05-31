@@ -1,6 +1,4 @@
-.form-group
-  .col-md-offset-2.col-xs-10.col-md-8
-    - if permit_modify
-      = form.submit t('lib_support.refs.apply'), :class => 'btn btn-success'
-  .col-xs-2
-    = link_to t('lib_support.refs.cancel'), { :controller => @item.class.to_s.tableize, :action => 'index' }, :class => 'btn btn-default mx-btn-right'
+.mui-col-md-12
+  - if permit_modify
+    = form.submit t('lib_support.refs.apply'), :class => 'mui-btn mui-btn--raised mui-btn--primary'
+  = link_to t('lib_support.refs.cancel'), { :controller => @item.class.to_s.tableize, :action => 'index' }, :class => 'mui-btn mui-btn--raised mx-btn-right'

@@ -1,6 +1,7 @@
 - columns.each do |col|
-  .form-group
-    = form.label col, :class => 'control-label col-md-2'
-    .col-md-10
-      = form.text_field col, :class => 'form-control', :autofocus => col == :name, :disabled => !permit_modify
-      %span.help-block
+  .mui-textfield.mui-textfield--float-label
+    = form.text_field col, :autofocus => col == :name, :disabled => !permit_modify,
+        :class => "mui--is-empty#{@item.errors.include?(col) ? ' mx-invalid-value' : ''}"
+    - if @item.errors.include?(col)
+      %small.mx-error-help-block= @item.errors[col].join
+    = form.label col

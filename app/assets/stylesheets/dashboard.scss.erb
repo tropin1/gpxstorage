@@ -1,4 +1,15 @@
-@import 'bootstrap/variables';
+@import 'variables';
+
+.travel-icons {
+  display: block;
+  width: 100%;
+  img {
+    display: inline-block;
+    padding: 2em 1em 2em 0;
+    width: 10em;
+    height: auto;
+  }
+}
 
 #overlay {
   position: absolute;
@@ -23,19 +34,16 @@
   }
 }
 
-.app-header {
-  color: <%= Track::DEFAULT_COLOR %>;
+@media (max-width: $mobile_width) {
+  .travel-icons img {
+    width: 5em;
+  }
+
+  #overlay { display: none }
 }
 
-.travel-icons {
-  display: block;
-  width: 100%;
-  img {
-    display: inline-block;
-    padding: 2em 1em 2em 0;
-    width: 10em;
-    height: auto;
-  }
+.app-header {
+  color: <%= Track::DEFAULT_COLOR %>;
 }
 
 .footer {
@@ -44,14 +52,4 @@
   right: 0;
   margin: 0 0.25em;
   font-weight: bold;
-}
-
-#search_form input[type="text"] { background: transparent }
-
-@media (max-width: $screen-sm-max) {
-  .travel-icons img {
-    width: 5em;
-  }
-
-  #search_form { display: none }
 }

@@ -13,15 +13,28 @@
     = action_cable_meta_tag
     = stylesheet_link_tag    'application', media: 'all', :'data-turbolinks-track' => 'reload'
     = javascript_include_tag 'application', :'data-turbolinks-track' => 'reload'
-  %body
-    - if map_view
-      = yield
-    - else
+  = content_tag :body, :class => current_page?(root_path) ? 'hide-sidedrawer' : 'no-overlay' do
+    #sidedrawer.mui--no-user-select
       = render partial: 'layouts/nav'
-      .container{:role => 'main'}
-        .row
-          .col-lg-12
-            - if content_for? :title
-              %h1.page-header= yield :title
-            = breadcrumbs style: :bootstrap
-        = yield
+    %header#header
+      .mui-appbar.mui--appbar-line-height
+        .mui-container-fluid
+          .sidedrawer-toggle.mui--visible-xs-inline-block.js-show-sidedrawer
+            %i.fa.fa-bars
+          .sidedrawer-toggle.mui--hidden-xs.js-hide-sidedrawer
+            %i.fa.fa-bars
+          .breadcrumbs
+            - breadcrumbs.tap do |links|
+              - if links.any?
+                - links.each do |link|
+                  - if link.current?
+                    %span= link.text
+                  -else
+                    = link_to link.text, link.url
+                    %i.fa.fa-angle-right
+    #content-wrapper
+      .mui--appbar-height
+      .mui-container-fluid
+        .mui-row
+          .mui-col-sm-10.mui-col-sm-offset-1
+            = yield

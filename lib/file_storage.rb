@@ -26,7 +26,7 @@ module Attachment
 
     def put(code, data)
       fn = gen_filename(code)
-      File.write "#{options.path}/#{fn}", data if fn
+      File.open("#{options.path}/#{fn}", 'wb') {|f| f.write data } if fn
 
       fn
     end

@@ -1,13 +1,6 @@
 - permit_modify = @item.permit_modify?(controller.permission_params)
 - content_for :title, @item.name || controller.resource.model_name.human if @item.respond_to?(:name)
-- if @item.errors.any?
-  .alert.alert-danger
-    %button.close{'aria-hidden' => true, 'data-dismiss' => 'alert', :type => 'button'} ×
-    %strong= "#{t('lib_support.refs.errors')}: #{@item.errors.count}"
-    %ul
-      - @item.errors.full_messages.each do |x|
-        %li= x
-.row
-  = form_for @item, :html => { :class => 'form-horizontal col-md-12', :'data-type' => @item.sm_name } do |f|
+.mui-panel
+  = form_for @item, :html => { :'data-type' => @item.sm_name } do |f|
     = render partial: 'item_form_fields', :locals => {:form => f, :permit_modify => permit_modify, :columns => @item.class.form_columns}
     = render partial: 'item_form_buttons', :locals => {:form => f, :permit_modify => permit_modify}

@@ -13,7 +13,8 @@
 //= require jquery2
 //= require jquery_ujs
 //= require turbolinks
-//= require bootstrap-sprockets
 //= require jquery.simplecolorpicker
+//= require mui
 //= require lib_support
+//= require jquery.appear
 //= require_tree .

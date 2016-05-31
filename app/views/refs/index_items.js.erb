@@ -1,8 +1,10 @@
 <% par = {} %>
-<% par[:text] = @text unless @text.to_s.empty? %>
+<% par.merge! :page => @page.next unless @items.empty? %>
+<% par.merge! :text => @text unless @text.to_s.empty? %>
 
 libSupport.indexList(
   '<%= controller.resource.sm_name %>',
   '<%= @items.map{|item| j(render partial: 'item', :locals => { :item => item }) }.join.html_safe %>',
-  '<%= j(paginate @items, :remote => true, :params => par ).html_safe %>'
+  '<%= url_for(par.merge :action => :index_items) if par[:page] %>',
+  <%= @page == 1 %>
 );

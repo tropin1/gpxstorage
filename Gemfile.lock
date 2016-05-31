@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/amatsuda/kaminari.git
-  revision: 384d5cc9adcdd2ce27e83531961943406241acc8
+  revision: 9d550c737a72fc1ddee71e979d358704593a5a6f
   branch: master
   specs:
     kaminari (1.0.0.alpha)
@@ -26,10 +26,10 @@ GIT
 
 GIT
   remote: git://github.com/yamax2/lib_support.git
-  revision: 7d607f20edd36a524d9dd968736a65b4ff1578f3
+  revision: 887443c8e1a83d49433a8f896ae4aacf762404e8
   branch: master
   specs:
-    lib_support (0.2.80)
+    lib_support (0.2.83)
       kaminari
       pg
       rails (>= 5.0.0.beta4)
@@ -76,12 +76,7 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (7.0.0)
-    autoprefixer-rails (6.3.6.1)
-      execjs
     bcrypt (3.1.11)
-    bootstrap-sass (3.3.6)
-      autoprefixer-rails (>= 5.2.1)
-      sass (>= 3.3.4)
     builder (3.2.2)
     byebug (9.0.5)
     coffee-rails (4.1.1)
@@ -125,7 +120,7 @@ GEM
       nokogiri (~> 1.6.0)
       ruby_parser (~> 3.5)
     i18n (0.7.0)
-    jbuilder (2.4.1)
+    jbuilder (2.5.0)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
     jquery-rails (4.1.1)
@@ -150,6 +145,8 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.0.0)
     minitest (5.9.0)
+    mui-sass (0.5.9)
+      sass (~> 3.3)
     multi_json (1.12.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
@@ -279,7 +276,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bootstrap-sass
   byebug
   coffee-rails (~> 4.1.0)
   devise
@@ -295,6 +291,7 @@ DEPENDENCIES
   leaflet-rails
   lib_support!
   listen (~> 3.0.5)
+  mui-sass
   omniauth-google-oauth2
   omniauth-yandex
   pg (~> 0.18)

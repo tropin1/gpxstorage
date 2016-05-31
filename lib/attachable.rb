@@ -14,7 +14,7 @@ module Attachment
 
     def attaches=(value)
       @attach_cache ||= []
-      @attach_cache << value
+      @attach_cache += value
     end
 
     def self.included(base)

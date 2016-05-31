@@ -1,20 +1,41 @@
-@import 'bootstrap/variables';
+@import 'variables';
 
 @mixin avatar($size) {
   border-radius: 50%;
   height: $size;
   margin-right: 5px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
 
 .email-field {
   padding-top: 0.4em;
 }
 
-.img-circle-avatar { @include avatar(48px) }
-.img-circle-avatar-sm  { @include avatar(32px) }
+.img-circle-avatar { @include avatar(32px) }
 
+.avatar-image {
+  position: relative;
+  margin-bottom: 1em;
 
-@media (max-width: $screen-sm-max) {
-  .img-circle-avatar-sm { display: none }
+  > img {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    max-height: 200px;
+    max-width: 200px;
+  }
+}
+
+@media (max-width: $mobile_width) {
+  .lib-support-list[data-type="user"] {
+    td, th {
+      &[data-column-name="cc"] {
+        display: none;
+      }
+    }
+
+    td[data-column-name="avatar"] {
+      border-bottom: none;
+    }
+  }
 }

@@ -9,8 +9,11 @@ class Attach < ApplicationRecord
     def add(filename, data, user)
       return unless data && filename && user
 
-      fn = TmpFiles.upload data, 'files'
-      create :code => fn, :filename => filename, :filename_storage => fn, :user => user if fn
+      attach = new(:filename => filename, :user => user, :code => TmpFiles.gen_hex)
+      attach.filename_storage = attach.storage.put(attach.code, data)
+
+      attach.save
+      attach
     end
 
     def process(codes, model)
@@ -18,8 +21,7 @@ class Attach < ApplicationRecord
         item = find_by_code(key)
         next if item.nil? || item.attachable_type
 
-        fn = item.storage.put item.code, TmpFiles.read(item.code, 'files')
-        item.update :attachable => model, :filename_storage => fn, :temporary => false
+        item.update :attachable => model, :temporary => false
       end
     end
   end
@@ -55,6 +57,6 @@ class Attach < ApplicationRecord
   end
 
   def remove_file
-    storage.remove(filename_storage) unless temporary?
+    storage.remove(filename_storage)
   end
 end
