@@ -1,3 +1,4 @@
+- content_for :base_page, true
 %div#overlay
   %video{'preload' => 'auto', 'autoplay' => '', 'loop' => ''}
     %source{'type' => 'video/mp4', 'src' => '/out.mp4'}
@@ -11,7 +12,7 @@
     = image_tag 'bike.png'
     = image_tag 'walk.png'
 - if user_signed_in?
-  = link_to t('add_track'), new_track_path, :class => 'btn btn-lg btn-success'
+  = link_to t('add_track'), new_track_path, :class => 'mui-btn mui-btn--primary mui-btn--raised mui-btn--large'
 - else
   = render partial: 'users/sessions/new'
 .footer

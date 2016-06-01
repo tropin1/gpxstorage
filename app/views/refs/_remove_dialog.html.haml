@@ -1,17 +1,11 @@
-.modal.fade{'aria-hidden' => true, 'aria-labelledby' => "#{model}RemoveModalLabel", 'data-action' => 'remove-dialog', 'data-type' => model, :id => "#{model}RemoveModal", :role => 'dialog', :tabindex => -1}
-  .modal-dialog
-    .modal-content
-      = form_tag url, method: :delete, remote: true, id: "remove_#{model}" do
-        .modal-header
-          %button.close{'aria-label' => 'Close', 'data-dismiss' => 'modal', :type => 'button'}
-            %span{'aria-hidden' => true} ×
-          %h4.modal-title{:id => "#{model}RemoveModalLabel"}= name
-        .modal-body
-          .form-group
-            = label_tag "#{model}_remove_list", t('lib_support.refs.remove_confirm', :name => name), :class => 'control-label'
-            = text_area_tag "#{model}[remove_list]", '', :'data-type' => model, :'data-member' => 'name_list', :class => 'form-control', :rows => 5, :style => 'resize: none;', :disabled => true
-            %span.help-block
-          = hidden_field_tag "#{model}_remove_ids", '', :'data-type' => model, :'data-member' => 'ids_list'
-        .modal-footer
-          %button.btn.btn-default{'data-dismiss' => 'modal', :type => 'button'}= t('lib_support.refs.cancel')
-          = submit_tag t('lib_support.refs.apply'), :class => 'btn btn-danger'
+.modal{'data-action' => 'remove-dialog', 'data-type' => model}
+  = form_tag url, method: :delete, remote: true, id: nil do
+    %legend= t('lib_support.refs.remove_confirm', :name => name)
+    .mui-textfield
+      = text_area_tag "#{model}[remove_list]", '', :'data-type' => model, :'data-member' => 'name_list', :class => 'form-control', :style => 'resize: none;', :disabled => true
+    = hidden_field_tag "#{model}_remove_ids", '', :'data-type' => model, :'data-member' => 'ids_list'
+    .modal-buttons
+      = submit_tag t('lib_support.refs.apply'), :class => 'mui-btn mui-btn--flat mui-btn--primary'
+      = link_to t('lib_support.refs.cancel'), '#', :class => 'mui-btn mui-btn--flat mui-btn--primary', :'data-action' => :close
+
+

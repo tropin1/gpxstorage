@@ -97,6 +97,12 @@ html, body, input, textarea, button {
 }
 
 #sidedrawer {
+  a {
+    &:hover, &:active, &:focus {
+      text-decoration: none;
+    }
+  }
+
   position: fixed;
   top: 0;
   bottom: 0;
@@ -165,6 +171,11 @@ html, body, input, textarea, button {
   }
 }
 
+.mui--appbar-height {
+  line-height: 64px;
+  height: 64px;
+}
+
 @media (min-width: 480px) {
   .mui--appbar-line-height {
     line-height: 56px;
@@ -172,6 +183,22 @@ html, body, input, textarea, button {
 
   .mui--appbar-min-height, .mui-appbar {
     min-height: 56px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mui-main-container[data-instance="true"] {
+    padding: 0;
+    margin: 0;
+
+    .mui-panel {
+      padding: 0;
+      box-shadow: none;
+    }
+  }
+
+  html, body {
+    background-color: $side_drawer_toggle_color !important;
   }
 }
 
@@ -183,15 +210,9 @@ html, body, input, textarea, button {
   }
 }
 
-.favicon {
-  > img {
-    height: 32px;
-    margin-right: 5px;
-  }
-
-  &:hover, &:active, &:focus {
-    text-decoration: none;
-  }
+.favicon > img {
+  height: 32px;
+  margin-right: 5px;
 }
 
 .mui-textfield > input, .mui-textfield > textarea {
@@ -305,10 +326,55 @@ html, body, input, textarea, button {
     visibility: hidden;
     width: 0;
 
+    .fa { display: none }
+
     &.active {
       opacity: 1;
       visibility: visible;
       width: 55px;
+
+      .fa { display: inline-block }
+    }
+  }
+}
+
+.modal {
+  display: none;
+  width: 400px;
+  height: 300px;
+  margin: 100px auto;
+  background-color: $side_drawer_toggle_color;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .26);
+  padding: 20px;
+
+  legend {
+    font-size: 19px;
+  }
+
+  form {
+    position: relative;
+    height: 100%;
+
+    textarea {
+      font-size: 14px;
+      color: darkgray;
+    }
+
+    .modal-buttons {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+
+      .mui-btn {
+        padding: 0 3px;
+        position: relative;
+        float: right;
+        margin: 0;
+
+        &:focus, &:active, &:hover {
+          color: $focus_color_btn;
+        }
+      }
     }
   }
 }

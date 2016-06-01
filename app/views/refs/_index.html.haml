@@ -20,10 +20,9 @@
           %th
       %tbody
     .ref-next-page
-
-/- if controller.ref_action?(:remove)
-/  = render partial: 'remove_dialog', :locals => {                          |
-/      :model => controller.resource.sm_name,                               |
-/      :name => controller.resource.model_name.human(:count => 2),          |
-/      :url => url_for(:controller => controller_name, :action => :remove)  |
-/    }                                                                      |
+- if controller.ref_action?(:remove)
+  = render partial: 'remove_dialog', :locals => {                          |
+      :model => controller.resource.sm_name,                               |
+      :name => controller.resource.model_name.human(:count => 2),          |
+      :url => url_for(:controller => controller_name, :action => :remove)  |
+    }                                                                      |

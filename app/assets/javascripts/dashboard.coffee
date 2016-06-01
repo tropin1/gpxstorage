@@ -85,38 +85,46 @@ class @GpxSupport extends @LibSupport
 
     return
 
-  prepareIndexLists: ->
-    super()
+  removeList: (type, items) ->
+    dlg = $(".modal[data-action=\"remove-dialog\"][data-type=\"#{type}\"]")
 
-    #$('[data-type][data-action="remove-dialog"]')
-    #  .data('obj', @)
-    #  .each ->
-    #     $('form:first', @)
-    #        .data('obj', $(@).data('obj'))
-    #        .data('model', $(@).data('type'))
-    #        .on('ajax:error', (xhr, status, error) ->
-    #            alert JSON.stringify(status.responseJSON, null, 2)
-    #            return
-    #        ).on('ajax:success', (e, result) ->
-    #            obj = $(@).data('obj')
-    #            obj.refreshType $(@).data('model')
-    #            $(@).closest('.modal').modal('hide')
-    #            return
-    #        )
+    dlg.find('*').removeAttr('id')
+    dlg = dlg.clone().show()
+    $('a[data-action="close"]', dlg).click ->
+      mui.overlay 'off'
+      false
 
-    #     return
+    $('form:first', dlg)
+      .data('obj', @)
+      .data('model', type)
+      .on('ajax:error', (xhr, status, error) ->
+        model = $(@).data('model')
 
-    #return
+        $('.mx-error-help-block', @).remove()
+        $('[data-member]').removeClass('mx-invalid-value')
 
-  #removeList: (type, items) ->
-    #dlg = $("[data-type=\"#{type}\"][data-action=\"remove-dialog\"]")
-    #form = $('form:first', dlg)
+        $.each(status.responseJSON, (k, v) ->
+          $("[name=\"#{model}[#{k}]\"]")
+            .addClass('mx-invalid-value')
+            .after("<small class=\"mx-error-help-block\">#{v}</small>")
 
-    #$("textarea[data-type=\"#{type}\"][data-member=\"name_list\"]", form).val ( items.map (x) -> x.name ).join(', ')
-    #$("input[data-type=\"#{type}\"][data-member=\"ids_list\"]", form).val ( items.map (x) -> x.id ).join(',')
+          return
+        )
 
-    #dlg.modal('show')
-    #return
+        return
+    ).on('ajax:success', (e, result) ->
+        obj = $(@).data('obj')
+        obj.refreshType $(@).data('model')
+        mui.overlay 'off'
+
+        return
+    )
+
+    $("textarea[data-type=\"#{type}\"][data-member=\"name_list\"]", dlg).val (items.map (x) -> x.name).join(', ')
+    $("input[data-type=\"#{type}\"][data-member=\"ids_list\"]", dlg).val (items.map (x) -> x.id).join(',')
+
+    mui.overlay 'on', dlg[0] unless dlg.length == 0
+    return
 
 @libSupport = new GpxSupport
 $side_drawer = undefined
@@ -153,10 +161,7 @@ document.addEventListener 'turbolinks:load', ->
   $('.js-show-sidedrawer').click showSidedrawer
   $('.js-hide-sidedrawer').click hideSidedrawer
 
-  titles = $('#sidedrawer strong');
-  titles.next().hide();
-
-  titles.click ->
+  $('#sidedrawer strong').click ->
     $(@).next().slideToggle(200)
     return
 

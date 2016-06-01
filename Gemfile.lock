@@ -26,10 +26,10 @@ GIT
 
 GIT
   remote: git://github.com/yamax2/lib_support.git
-  revision: 887443c8e1a83d49433a8f896ae4aacf762404e8
+  revision: 94be70ad07d90ce2562c389f7fff78000d13db0d
   branch: master
   specs:
-    lib_support (0.2.83)
+    lib_support (0.2.85)
       kaminari
       pg
       rails (>= 5.0.0.beta4)

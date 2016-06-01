@@ -1,8 +1,6 @@
 - if @user
-  - content_for :title, "#{controller.resource.model_name.human(:count => 2)} (#{@user.name})"
   - breadcrumb :user_tracks, @user
 - else
-  - content_for :title, controller.resource.model_name.human(:count => 2)
   - breadcrumb :tracks
 
 = render partial: 'index'
