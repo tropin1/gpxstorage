@@ -5,7 +5,6 @@
   border: 2px dashed $hover_menu_item_color;
   text-align: center;
   line-height: 38px;
-  margin-bottom: 15px;
 
   &:after {
     content: '<%= I18n.t('drop_here') %>';
@@ -26,56 +25,50 @@
   }
 }
 
-/*
 .gpx-file-select {
   display: block;
-  font-size: $font-size-large;
-  &.active { color: $btn-default-border }
+  font-size: 20px;
+  margin-bottom: 1em;
+  margin-top: 1em;
+  &.active { color: $hover_menu_item_color }
+
+  span {
+    margin-left: 6px;
+  }
 }
 
-
 .gpx-track-item {
-  input {
-    border-right: none;
-    border-radius: $border-radius-base 0 0 0;
+  .mui-textfield {
+    margin-bottom: 0;
+    input {
+      padding-right: 1em;
+    }
   }
 
-  .input-group-addon {
+  .remove-addon {
+    position: absolute;
+    right: 3px;
+    top: 23px;
+    color: $hover_menu_item_color;
     cursor: pointer;
 
-    &:hover {
-      &.color-addon { color: $brand-primary }
-      &.remove-addon { color: $brand-danger }
+    &:hover, &:active {
+      color: inherit;
     }
-
-    &.remove-addon { border-left: none; }
-    &.color-addon.active { color: $brand-primary }
   }
 
-  &+.gpx-track-item-color-picker {
+  & + .gpx-track-item-color-picker {
     &.active { max-height: 20em; }
-    border-left: 1px solid $input-border;
-    border-right: 1px solid $input-border;
     transition: max-height 0.8s;
     overflow: hidden;
     max-height: 0;
 
-    .color-picker {
-      margin-top: $form-group-margin-bottom;
-      margin-bottom: $form-group-margin-bottom;
-
-      .simplecolorpicker { padding: 0; }
-    }
-
-    &+.gpx-track-item-color-marker {
+    & + .gpx-track-item-color-marker {
       height: 0.8em;
-      margin-bottom: $form-group-margin-bottom;
-      border-radius: 0 0 $border-radius-base $border-radius-base;
       cursor: pointer;
     }
   }
 }
-*/
 
 #map {
   width: 100%;

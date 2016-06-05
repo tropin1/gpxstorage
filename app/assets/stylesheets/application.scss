@@ -54,6 +54,9 @@ html, body, input, textarea, button {
 
 .lib-support-list td {
   word-break: break-all;
+  &:last-child {
+    text-align: right;
+  }
 }
 
 .breadcrumbs {

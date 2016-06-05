@@ -18,7 +18,6 @@
     label
       = form.check_box :public, :disabled => !permit_modify
       = Track.human_attribute_name(:public)
-
 .mui-col-sm-12
   .track-items
     .track-items-drop-here data-code="#{@item.code}"
@@ -26,6 +25,7 @@
   .mui-col-sm-12
     = render partial: 'track_item', :locals => { :item => item, :ord => index }
 = file_field_tag :track_items_files, :multiple => true, :style => 'display: none'
-= link_to '#', :class => 'gpx-file-select' do
-  i.fa.fa-paperclip
-    span= t('select_files')
+.mui-col-sm-12
+  = link_to '#', :class => 'gpx-file-select' do
+    i.fa.fa-paperclip
+      span= t('select_files')

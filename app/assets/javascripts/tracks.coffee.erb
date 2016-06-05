@@ -47,18 +47,11 @@ prepareAddons = (parent) ->
           item.remove()
           return
 
-  $('.color-addon:not([data-ready])', parent)
-      .attr('data-ready', true)
-      .click ->
-          $(@).toggleClass('active').closest('.gpx-track-item').next().toggleClass('active')
-          return
-
   $('.gpx-track-item-color-marker:not([data-ready])', parent)
       .attr('data-ready', true)
       .click ->
           item = $(@).prev()
           item.toggleClass('active')
-          item.prev().find('.color-addon').toggleClass('active')
 
           return
 

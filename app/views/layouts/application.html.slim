@@ -1,6 +1,5 @@
 - map_view = content_for?(:map_view)
 - page_title = content_for(:page_title)
-- model = controller.respond_to?(:resource) ? controller.resource.sm_name : :track
 
 doctype html
 html
@@ -39,13 +38,14 @@ html
                           = link_to link.text, link.url
                           i.fa.fa-angle-right
             td.mui--appbar-height.mui--text-right
-              .mui-container-fluid.search-bar
-                .mui-textfield
-                  input type="text" placeholder="#{t('lib_support.refs.search')}" data-action="search" data-type="#{model}"
-                = link_to '#', :class => 'btn-simple btn-search-show' do
-                  i.fa.fa-search
-                = link_to '#', :class => 'btn-simple btn-search-hide' do
-                  i.fa.fa-times
+              - if controller.respond_to?(:resource) && action_name == 'index'
+                .mui-container-fluid.search-bar
+                  .mui-textfield
+                    input type="text" placeholder="#{t('lib_support.refs.search')}" data-action="search" data-type="#{controller.resource.sm_name}"
+                  = link_to '#', :class => 'btn-simple btn-search-show' do
+                    i.fa.fa-search
+                  = link_to '#', :class => 'btn-simple btn-search-hide' do
+                    i.fa.fa-times
       #content-wrapper
         .mui--appbar-height
         .mui-container-fluid.mui-main-container data-instance="#{content_for(:base_page).blank?.to_s}"

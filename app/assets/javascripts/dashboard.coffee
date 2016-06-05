@@ -181,9 +181,10 @@ document.addEventListener 'turbolinks:load', ->
 
   $('.btn-search-hide').click ->
     bar = $(@).closest('.search-bar')
-    bar.find('input:first').val('').trigger('keyup')
-    bar.removeClass('active')
+    input = bar.find('input:first')
+    input.val('').trigger('keyup') if $.trim(input.val()).length > 0
 
+    bar.removeClass('active')
     false
 
   return
