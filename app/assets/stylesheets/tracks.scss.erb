@@ -160,6 +160,11 @@
         &:last-child {
           padding-left: 0.5em
         }
+
+        > span {
+          font-size: smaller;
+          word-break: break-word;
+        }
       }
     }
   }
@@ -167,9 +172,23 @@
 
 .lib-support-list[data-type="track"] {
   td, th {
-    &[data-column-name="len"] {
+    &[data-column-name="len"], &[data-column-name="avg_speed"] {
       text-align: right;
       padding-right: 1.5em;
+    }
+  }
+}
+
+@media (max-width: $md_width) {
+  .lib-support-list[data-type="track"] {
+    td, th {
+      &[data-column-name="avg_speed"], &[data-column-name="created_at"] { display: none }
+    }
+
+    td {
+      .img-circle-avatar + a {
+        display: none;
+      }
     }
   }
 }
@@ -177,18 +196,12 @@
 @media (max-width: $mobile_width) {
   .lib-support-list[data-type="track"] {
     td, th {
-      &[data-column-name="len"], &[data-column-name="created_at"] { display: none }
+      &[data-column-name="avg_speed"], &[data-column-name="len"], &[data-column-name="created_at"] { display: none }
     }
 
     td[data-column-name="user_name"] {
       border-bottom: none;
       width: 4.5em;
-    }
-
-    td {
-      .img-circle-avatar + a {
-        display: none;
-      }
     }
   }
 

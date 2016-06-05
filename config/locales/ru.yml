@@ -8,6 +8,7 @@ ru:
   hide_legend: "Скрыть легенду"
   instances: "Сущности"
   km: "км."
+  kmh: "км/ч."
   main_page: "Главная"
   map: "Карта"
   map_long: "Показать на карте"
@@ -39,6 +40,7 @@ ru:
             name: "Название"
             url: "url"
         track:
+            avg_speed: "Ср. скорость, км/ч."
             created_at: "Добавлен"
             descr: "Описание"
             layer: "Слой карты"

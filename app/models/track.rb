@@ -8,7 +8,7 @@ class Track < ActiveRecord::Base
   belongs_to       :layer
   has_many         :track_items, -> { order(:name) }, foreign_key: :track_code, dependent: :destroy
   strip_attributes :only => [:name, :descr]
-  set_ref_columns  :user_name, :name, :len, :created_at
+  set_ref_columns  :user_name, :name, :len, :avg_speed, :created_at
   set_form_columns :name, :descr, :public
   set_id_column    :code
   paginates_per    10
@@ -25,18 +25,18 @@ class Track < ActiveRecord::Base
   after_commit     { user.refresh_cache }
   after_commit(on: [:create, :update]) { TrackWorker.perform_async(code) unless @lock }  # to calc all distances
 
-  def calc_distances!
+  def calc_data!
     ar = []
 
     track_items.map do |item|
       file = GPX::GPXFile.new(:gpx_data => item.data)
 
-      item.update :len => file.distance
-      ar << item.len
+      item.update :len => file.distance, :avg_speed => file.average_speed
+      ar << { :len => item.len, :avg_speed => item.avg_speed }.methods_for_keys
     end
 
     @lock = true
-    update :len => ar.sum
+    update :len => ar.map(&:len).sum.round(2), :avg_speed => ar.map(&:avg_speed).avg.round(2)
   ensure
     @lock = nil
   end

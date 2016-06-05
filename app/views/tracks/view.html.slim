@@ -20,4 +20,5 @@
         .legend_item.color
           div style="background-color: #{item.color}"
         .legend_item
-          = "#{item.name} (#{item.len} #{t('km')})"
+          = item.name
+          span = "  (#{item.len} #{t('km')}, #{item.avg_speed.round(2)} #{t('kmh')})"

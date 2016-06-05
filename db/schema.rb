@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160521212016) do
+ActiveRecord::Schema.define(version: 20160605162446) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 20160521212016) do
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
     t.decimal  "len",                    default: "0.0", null: false
+    t.decimal  "avg_speed",              default: "0.0", null: false
     t.index ["track_code"], name: "index_track_items_on_track_code", using: :btree
   end
 
@@ -78,6 +79,7 @@ ActiveRecord::Schema.define(version: 20160521212016) do
     t.boolean  "public",                 default: true,                                         null: false
     t.decimal  "len",                    default: "0.0",                                        null: false
     t.integer  "layer_id",               default: 59,                                           null: false
+    t.decimal  "avg_speed",              default: "0.0",                                        null: false
     t.index ["code"], name: "index_tracks_on_code", unique: true, using: :btree
     t.index ["layer_id"], name: "index_tracks_on_layer_id", using: :btree
     t.index ["txt_index"], name: "index_tracks_on_txt_index", using: :gin
