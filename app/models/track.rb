@@ -31,7 +31,10 @@ class Track < ActiveRecord::Base
     track_items.map do |item|
       file = GPX::GPXFile.new(:gpx_data => item.data)
 
-      item.update :len => file.distance, :avg_speed => file.average_speed
+      speed = file.average_speed
+      speed = 0 if speed.infinite?
+
+      item.update :len => file.distance, :avg_speed => speed
       ar << { :len => item.len, :avg_speed => item.avg_speed }.methods_for_keys
     end
 
