@@ -1,15 +1,19 @@
-.mui-col-md-2.mui-col-sm-12.avatar-image
-  - if @item.avatar
+- if @item.avatar
+  .mui-col-md-2.mui-col-sm-12.avatar-image
     = image_tag @item.avatar.url
-%div{:class => @item.avatar ? 'mui-col-md-10 mui-col-sm-12' : 'mui-col-sm-12'}
-  = render :partial => 'refs/item_form_fields',
-      :locals => {:form => form, :permit_modify => permit_modify, :columns => @item.class.form_columns.except(:admin)}
+div class=(@item.avatar ? 'mui-col-md-10 mui-col-sm-12' : 'mui-col-sm-12')
+  .mui-textfield.mui-textfield--float-label
+    = form.text_field :name, :autofocus => true, :disabled => !permit_modify, :class => "mui--is-empty#{@item.errors.include?(:name) ? ' mx-invalid-value' : ''}"
+    - if @item.errors.include?(:name)
+      small.mx-error-help-block
+        = @item.errors[:name].join
+    = form.label :name
   - if @item.permit_modify?(controller.permission_params)
     .mui-textfield.mui-textfield--float-label
       = form.text_field :email, :disabled => true, :class => 'mui--is-empty'
       = form.label :email
   .mui-checkbox
-    %label
+    label
       = form.check_box :admin, :disabled => @item.get_id == current_user.get_id || !permit_modify
       = User.human_attribute_name(:admin)
   - if @item.tracks.count > 0

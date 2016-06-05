@@ -1,14 +1,14 @@
-%li
+li
   = link_to user_tracks_path(item) do
-    %i.fa.fa-map-marker{'title' => Track.model_name.human(:count => 2)}
+    i.fa.fa-map-marker title="#{Track.model_name.human(:count => 2)}"
     = "#{Track.model_name.human(:count => 2)} (#{item.cc})"
 - if item.permit?(controller.permission_params)
-  %li
+  li
     = link_to item do
-      %i.fa.fa-pencil-square-o{'title' => t('profile')}
+      i.fa.fa-pencil-square-o title="#{t('profile')}"
       = t('profile')
 - if item.permit_modify?(controller.permission_params) && item.id != current_user.id
-  %li
+  li
     = link_to '#', :'data-type' => controller.resource.sm_name, :'data-action' => 'remove_single', :'data-id' => item.get_id do
-      %i.fa.fa-trash-o{'title' => t('lib_support.refs.remove')}
+      i.fa.fa-trash-o title="#{t('lib_support.refs.remove')}"
       = t('lib_support.refs.remove')

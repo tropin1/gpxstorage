@@ -1,10 +1,10 @@
 - if controller.ref_action?(:show) && item.permit?(controller.permission_params)
-  %li
+  li
     = link_to item do
-      %i.fa.fa-pencil-square-o{'title' => t('lib_support.refs.edit')}
+      i.fa.fa-pencil-square-o title="#{t('lib_support.refs.edit')}"
       = t('lib_support.refs.edit')
 - if controller.ref_action?(:remove) && item.permit_modify?(controller.permission_params)
-  %li
+  li
     = link_to '#', :'data-type' => controller.resource.sm_name, :'data-action' => 'remove_single', :'data-id' => item.get_id do
-      %i.fa.fa-trash-o{'title' => t('lib_support.refs.remove')}
+      i.fa.fa-trash-o title="#{t('lib_support.refs.remove')}"
       = t('lib_support.refs.remove')

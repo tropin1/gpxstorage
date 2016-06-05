@@ -148,12 +148,14 @@ document.addEventListener 'turbolinks:load', ->
   $('html,body').css('height', '100%')
 
   libSupport.findTable('track').on('gpx.list-ready', ->
-     $('.btn-track-download', @).click ->
-       $.ajax "/tracks/#{$(@).closest('tr').data('id')}/download",
-          success: -> alert '<%= I18n.t('mailer.sended') %>'
-          error: GpxSupport.showErrorStatus
+     $('.btn-track-download:not([data-ready])', @)
+       .attr('data-ready', true)
+       .click ->
+         $.ajax "/tracks/#{$(@).closest('tr').data('id')}/download",
+            success: -> alert '<%= I18n.t('mailer.sended') %>'
+            error: GpxSupport.showErrorStatus
 
-       false
+         false
 
      return
   )

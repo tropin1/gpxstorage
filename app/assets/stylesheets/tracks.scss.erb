@@ -1,18 +1,18 @@
 @import 'variables';
-/*
+
 .track-items-drop-here {
   height: 42px;
-  border: 2px dashed $input-border;
+  border: 2px dashed $hover_menu_item_color;
   text-align: center;
   line-height: 38px;
-  margin-bottom: $form-group-margin-bottom;
+  margin-bottom: 15px;
 
   &:after {
     content: '<%= I18n.t('drop_here') %>';
     text-align: center;
     width: 100%;
     padding: 0.1em 0;
-    color: $btn-default-border;
+    color: $hover_menu_item_color;
   }
 
   &.active {
@@ -21,16 +21,18 @@
   }
 
   &.dragging {
-    border-color: $input-border-focus;
+    border-color: $focus_color_btn;
     &:after { color: inherit }
   }
 }
 
+/*
 .gpx-file-select {
   display: block;
   font-size: $font-size-large;
   &.active { color: $btn-default-border }
 }
+
 
 .gpx-track-item {
   input {
@@ -73,6 +75,7 @@
     }
   }
 }
+*/
 
 #map {
   width: 100%;
@@ -84,7 +87,7 @@
     display: none;
     text-align: center;
     cursor: pointer;
-    color: $brand-primary;
+    color: $focus_color_btn;
   }
 
   &.hidden-legend {
@@ -97,11 +100,11 @@
 
   position: absolute;
   width: 250px;
-  background-color: $input-bg;
+  background-color: $side_drawer_toggle_color;
   min-height: 20em;
   top: 1em;
   right: 1em;
-  border: 1px $input-border solid;
+  border: 1px $hover_menu_item_color solid;
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
   padding: 1em;
   transition: all 0.8s;
@@ -109,7 +112,7 @@
   .info-header {
     display: table;
     padding-bottom: 0.2em;
-    border-bottom: 1px $input-border solid;
+    border-bottom: 1px $hover_menu_item_color solid;
     width: 100%;
 
     > * {
@@ -126,7 +129,7 @@
     > .hide-legend {
       text-align: right;
       cursor: pointer;
-      &:hover .fa { color: $brand-danger }
+      &:hover .fa { color: maroon }
     }
   }
 
@@ -178,13 +181,18 @@
   }
 }
 
-@media (max-width: $screen-sm-max) {
+@media (max-width: $mobile_width) {
   .lib-support-list[data-type="track"] {
     td, th {
       &[data-column-name="len"], &[data-column-name="created_at"] { display: none }
+    }
+
+    td {
+      .img-circle-avatar + a {
+        display: none;
+      }
     }
   }
 
   .track-items-drop-here { display: none }
 }
-*/

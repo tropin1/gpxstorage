@@ -5,10 +5,10 @@
 
 .input-group.gpx-track-item
   = text_field_tag "track[track_items][#{ord_value}][name]", item_value&.name, :class => 'form-control'
-  .input-group-addon.color-addon{:title => t('color_select')}
-    %i.fa.fa-map-marker
-  .input-group-addon.remove-addon{:title => t('remove_item')}
-    %i.fa.fa-times
+  .input-group-addon.color-addon title="#{t('color_select')}"
+    i.fa.fa-map-marker
+  .input-group-addon.remove-addon title="#{t('remove_item')}"
+    i.fa.fa-times
   = hidden_field_tag "track[track_items][#{ord_value}][code]", code_value || item_value.code, :'data-field' => :code
   = hidden_field_tag "track[track_items][#{ord_value}][color]", color_value, :'data-field' => :color
   - if item_value && item_value.respond_to?(:update_id)
@@ -16,4 +16,4 @@
 .gpx-track-item-color-picker
   .col-xs-12.color-picker
     = select_tag "track[track_items][#{ord_value}][color_selector]", options_colors(color_value), :class => 'form-control'
-.gpx-track-item-color-marker{:title => t('color_select'), :style => "background-color: #{color_value}" }
+.gpx-track-item-color-marker title="#{t('color_select')}" style="background-color: #{color_value}"

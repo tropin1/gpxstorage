@@ -2,14 +2,15 @@
 = stylesheet_link_tag    :leaflet, media: 'all', :'data-turbolinks-track' => 'reload'
 - content_for :map_view, true
 - content_for :page_title, @item.name
-#map{:'data-url' => @item.layer.url, :'data-tracks' => @item.track_items.map{|x| { :id => x.id, :color => x.color, :name => x.name, :url => track_gpx_path(@item, :id => x.id) } }.to_json.html_safe }
+
+#map data-url="#{@item.layer.url}" data-tracks="#{@item.track_items.map{|x| { :id => x.id, :color => x.color, :name => x.name, :url => track_gpx_path(@item, :id => x.id) } }.to_json}"
 #legend
-  .show-legend{:title => t('show_legend')}
-    %i.fa.fa-info-circle
+  .show-legend title="#{t('show_legend')}"
+    i.fa.fa-info-circle
   .info-header
-    %h4= @item.name
-    .hide-legend{:title => t('hide_legend')}
-      %i.fa.fa-times
+    h4= @item.name
+    .hide-legend title="#{t('hide_legend')}"
+      i.fa.fa-times
   .legend_text= (@item.descr || '').html_safe
   .legend_items
     - @item.track_items.each do |item|
@@ -17,6 +18,6 @@
         .legend_item.item-checkbox
           = check_box_tag "item[#{item.id}]", nil, true, :'data-id' => item.id
         .legend_item.color
-          %div{:style => "background-color: #{item.color}"}
+          div style="background-color: #{item.color}"
         .legend_item
           = "#{item.name} (#{item.len} #{t('km')})"

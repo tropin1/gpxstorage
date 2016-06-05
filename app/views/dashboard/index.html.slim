@@ -1,12 +1,12 @@
 - content_for :base_page, true
-%div#overlay
-  %video{'preload' => 'auto', 'autoplay' => '', 'loop' => ''}
-    %source{'type' => 'video/mp4', 'src' => '/out.mp4'}
-  %div.info-block
+div#overlay
+  video preload="auto" autoplay="" loop=""
+    source type="video/mp4" src="/out.mp4"
+  div.info-block
 .app-header
-  %h1= t('dashboard.title')
+  h1= t('dashboard.title')
   = link_to t('dashboard.gpx_url'), :target => '_blank' do
-    %h5= t('dashboard.gpx_text')
+    h5= t('dashboard.gpx_text')
   .travel-icons
     = image_tag 'car.png'
     = image_tag 'bike.png'

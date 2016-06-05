@@ -1,0 +1,54 @@
+- map_view = content_for?(:map_view)
+- page_title = content_for(:page_title)
+- model = controller.respond_to?(:resource) ? controller.resource.sm_name : :track
+
+doctype html
+html
+  head
+    meta content=('text/html; charset=UTF-8') http-equiv="Content-Type"
+    title= page_title ? "#{page_title} - #{t('title')}" : t('title')
+    meta charset="UTF-8"
+    meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"
+    meta content="width=device-width, initial-scale=1" name="viewport"
+    = csrf_meta_tags
+    = action_cable_meta_tag
+    = stylesheet_link_tag    'application', media: 'all', :'data-turbolinks-track' => 'reload'
+    = javascript_include_tag 'application', :'data-turbolinks-track' => 'reload'
+  = content_tag :body, :class => current_page?(root_path) ? 'hide-sidedrawer' : 'no-overlay' do
+    - if map_view
+      = yield
+    - else
+      #sidedrawer.mui--no-user-select
+        = render partial: 'layouts/nav'
+      header#header
+        table.mui-appbar width='100%'
+          tr style='vertical-align:middle'
+            td.mui--appbar-line-height style="white-space: nowrap"
+              .mui-container-fluid
+                .sidedrawer-toggle.mui--visible-xs-inline-block.js-show-sidedrawer
+                  i.fa.fa-bars
+                .sidedrawer-toggle.mui--hidden-xs.js-hide-sidedrawer
+                  i.fa.fa-bars
+                .breadcrumbs
+                  - breadcrumbs.tap do |links|
+                    - if links.any?
+                      - links.each do |link|
+                        - if link.current?
+                          span= link.text
+                        -else
+                          = link_to link.text, link.url
+                          i.fa.fa-angle-right
+            td.mui--appbar-height.mui--text-right
+              .mui-container-fluid.search-bar
+                .mui-textfield
+                  input type="text" placeholder="#{t('lib_support.refs.search')}" data-action="search" data-type="#{model}"
+                = link_to '#', :class => 'btn-simple btn-search-show' do
+                  i.fa.fa-search
+                = link_to '#', :class => 'btn-simple btn-search-hide' do
+                  i.fa.fa-times
+      #content-wrapper
+        .mui--appbar-height
+        .mui-container-fluid.mui-main-container data-instance="#{content_for(:base_page).blank?.to_s}"
+          .mui-row
+            .mui-col-sm-10.mui-col-sm-offset-1
+              = yield

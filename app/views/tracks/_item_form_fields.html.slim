@@ -1,0 +1,31 @@
+.mui-col-sm-12.mui-col-md-8
+  .mui-textfield.mui-textfield--float-label
+    = form.text_field :name, :autofocus => true, :disabled => !permit_modify, :class => "mui--is-empty#{@item.errors.include?(:name) ? ' mx-invalid-value' : ''}"
+    - if @item.errors.include?(:name)
+      small.mx-error-help-block
+        = @item.errors[:name].join
+    = form.label :name
+.mui-col-sm-12.mui-col-md-4
+  .mui-select
+    = form.collection_select :layer_id, Layer.all, :id, :name
+    = form.label :layer
+.mui-col-sm-12
+  .mui-textfield.mui-textfield--float-label style="margin-bottom: 0"
+    = form.text_area :descr, :disabled => !permit_modify, :class => 'mui--is-empty', :rows => 5, :style => 'resize: vertical'
+    = form.label :descr
+.mui-col-sm-12
+  .mui-checkbox
+    label
+      = form.check_box :public, :disabled => !permit_modify
+      = Track.human_attribute_name(:public)
+
+.mui-col-sm-12
+  .track-items
+    .track-items-drop-here data-code="#{@item.code}"
+- @item.track_items.each_with_index do |item, index|
+  .mui-col-sm-12
+    = render partial: 'track_item', :locals => { :item => item, :ord => index }
+= file_field_tag :track_items_files, :multiple => true, :style => 'display: none'
+= link_to '#', :class => 'gpx-file-select' do
+  i.fa.fa-paperclip
+    span= t('select_files')

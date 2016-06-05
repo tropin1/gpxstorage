@@ -1,6 +1,6 @@
-.modal{'data-action' => 'remove-dialog', 'data-type' => model}
+.modal data-action="remove-dialog" data-type="#{model}"
   = form_tag url, method: :delete, remote: true, id: nil do
-    %legend= t('lib_support.refs.remove_confirm', :name => name)
+    legend= t('lib_support.refs.remove_confirm', :name => name)
     .mui-textfield
       = text_area_tag "#{model}[remove_list]", '', :'data-type' => model, :'data-member' => 'name_list', :class => 'form-control', :style => 'resize: none;', :disabled => true
     = hidden_field_tag "#{model}_remove_ids", '', :'data-type' => model, :'data-member' => 'ids_list'

@@ -1,0 +1,24 @@
+#sidedrawer-brand.mui--appbar-line-height
+  = link_to root_path, :class => 'favicon' do
+    = image_tag '/favicon.ico'
+    = t('title')
+.mui-divider
+ul
+  li
+    strong= t('instances')
+    ul
+      li= link_to User.model_name.human(:count => 2), users_path
+      - if user_signed_in? && current_user.admin?
+        li= link_to Layer.model_name.human(:count => 2), layers_path
+      li= link_to Track.model_name.human(:count => 2), tracks_path
+  li
+    strong= I18n.t('profile')
+    - if user_signed_in?
+      ul
+        li= link_to t('profile'), user_path(current_user)
+        li= link_to t('add_track'), new_track_path
+        li= link_to t('my_tracks'), user_tracks_path(current_user)
+        li= link_to t('sign_out'), destroy_user_session_path, :method => :delete
+    - else
+      ul
+        li= link_to t('sign_in'), new_user_session_path

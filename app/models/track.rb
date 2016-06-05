@@ -8,7 +8,7 @@ class Track < ActiveRecord::Base
   belongs_to       :layer
   has_many         :track_items, -> { order(:name) }, foreign_key: :track_code, dependent: :destroy
   strip_attributes :only => [:name, :descr]
-  set_ref_columns  :name, :user_name, :len, :created_at
+  set_ref_columns  :user_name, :name, :len, :created_at
   set_form_columns :name, :descr, :public
   set_id_column    :code
   paginates_per    10

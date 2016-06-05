@@ -1,9 +1,0 @@
-= link_to track_view_path(item), :class => 'btn btn-xs btn-primary btn-icon', :target => '_blank' do
-  %i.fa.fa-map-marker{:title => t('map_long')}
-  %span= t('map')
-- if item.permit_modify?(controller.permission_params)
-  = render partial: 'refs/item_buttons', :locals => {:item => item}
-- if user_signed_in?
-  = link_to '#', :class => 'btn btn-xs btn-default btn-icon btn-track-download' do
-    %i.fa.fa-download{:title => t('download')}
-    %span= t('download')

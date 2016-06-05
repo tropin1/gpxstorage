@@ -1,0 +1,12 @@
+- model = controller.resource.sm_name.to_s
+tr data-id="#{item.get_id}" data-type="#{model}"
+  td
+    input type="checkbox"
+  - controller.resource.ref_columns.each do |col|
+    td data-column-name="#{col}"
+      = item.ref_column_value col
+  td
+    = link_to '#', :class => 'btn-simple btn-editor' do
+      i.fa.fa-ellipsis-v
+    ul.popup-menu.mui-dropdown__menu.mui-dropdown__menu--right style="width: 100px"
+      = render partial: 'item_buttons', :locals => { :item => item }

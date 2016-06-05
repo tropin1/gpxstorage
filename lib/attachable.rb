@@ -1,8 +1,8 @@
 module Attachment
   module Attachable
     def attaches
-      if @attach_cache
-        Attach.where(:code => @attach_cache.to_a.map(&:first))
+      if attaches_cached?
+        Attach.where(:code => @attach_cache)
       else
         super
       end

@@ -52,6 +52,10 @@ html, body, input, textarea, button {
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
 }
 
+.lib-support-list td {
+  word-break: break-all;
+}
+
 .breadcrumbs {
   display: inline-block;
   margin-left: 0.5em;
@@ -63,6 +67,7 @@ html, body, input, textarea, button {
 
   a {
     cursor: pointer;
+    outline: none;
 
     &:hover, &:active {
       text-decoration: none;
@@ -157,6 +162,34 @@ html, body, input, textarea, button {
   overflow-x: hidden;
   margin-left: 0;
   transition: margin-left 0.2s;
+
+  .mui--appbar-height {
+    height: 80px;
+  }
+}
+
+.search-bar {
+  .mui-textfield {
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    width: 0;
+    transition: width 0.2s;
+  }
+
+  .btn-search-hide { display: none }
+
+  &.active {
+    .btn-search-show { display: none }
+    .btn-search-hide { display: inline-block }
+    .mui-textfield { width: calc(100% - #{$btn_radius}) }
+  }
+
+  .btn-simple {
+    &:hover, &:focus, &:active {
+      background-color: inherit;
+    }
+  }
 }
 
 @media (min-width: $mobile_width) {
@@ -168,21 +201,6 @@ html, body, input, textarea, button {
     #header { left: 0 }
     #sidedrawer { transform: translate(0px) }
     #content-wrapper { margin-left: 0 }
-  }
-}
-
-.mui--appbar-height {
-  line-height: 64px;
-  height: 64px;
-}
-
-@media (min-width: 480px) {
-  .mui--appbar-line-height {
-    line-height: 56px;
-  }
-
-  .mui--appbar-min-height, .mui-appbar {
-    min-height: 56px;
   }
 }
 
@@ -316,7 +334,7 @@ html, body, input, textarea, button {
   right: 2em;
 
   .mui-btn + .mui-btn {
-    margin-left: 0;
+    margin-left: 4px;
   }
 
   > button, a {

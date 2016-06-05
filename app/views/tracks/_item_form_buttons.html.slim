@@ -1,0 +1,4 @@
+.mui-col-md-12
+  - if permit_modify
+    = form.submit t('lib_support.refs.apply'), :class => 'mui-btn mui-btn--raised mui-btn--primary'
+  = link_to t('lib_support.refs.cancel'), user_tracks_path(@item.user || current_user), :class => 'mui-btn mui-btn--raised mx-btn-right'

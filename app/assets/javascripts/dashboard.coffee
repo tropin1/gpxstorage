@@ -88,7 +88,9 @@ class @GpxSupport extends @LibSupport
   removeList: (type, items) ->
     dlg = $(".modal[data-action=\"remove-dialog\"][data-type=\"#{type}\"]")
 
-    dlg.find('*').removeAttr('id')
+    dlg.find('*').removeAttr('id').removeClass('mx-invalid-value')
+    $('.mx-error-help-block', dlg).remove()
+
     dlg = dlg.clone().show()
     $('a[data-action="close"]', dlg).click ->
       mui.overlay 'off'
@@ -169,5 +171,19 @@ document.addEventListener 'turbolinks:load', ->
     cur = $(document).data('ref-item')
     $(document).click() if cur?
     return
+
+  $('.btn-search-show').click ->
+    bar = $(@).closest('.search-bar')
+    bar.addClass('active')
+    bar.find('input:first').focus().select()
+
+    false
+
+  $('.btn-search-hide').click ->
+    bar = $(@).closest('.search-bar')
+    bar.find('input:first').val('').trigger('keyup')
+    bar.removeClass('active')
+
+    false
 
   return

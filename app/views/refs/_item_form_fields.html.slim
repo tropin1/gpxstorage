@@ -1,0 +1,9 @@
+- columns.each do |col|
+  .mui-col-md-12
+    .mui-textfield.mui-textfield--float-label
+      = form.text_field col, :autofocus => col == :name, :disabled => !permit_modify,
+          :class => "mui--is-empty#{@item.errors.include?(col) ? ' mx-invalid-value' : ''}"
+      - if @item.errors.include?(col)
+        small.mx-error-help-block
+          = @item.errors[col].join
+      = form.label col

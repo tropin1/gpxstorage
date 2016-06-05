@@ -23,8 +23,8 @@ class User < ActiveRecord::Base
            User.where(:email => access_token.info.email).first || \
            User.new(:password => Devise.friendly_token[0, 20])
 
-    user.load_avatar(access_token)
     user.update :name => data['name'], :provider => access_token.provider, :email => data['email'], :uid => access_token.uid
+    user.load_avatar(access_token)
     user
   end
 
