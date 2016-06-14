@@ -207,7 +207,7 @@ html, body, input, textarea, button {
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: $sm_width) {
   .mui-main-container[data-instance="true"] {
     padding: 0;
     margin: 0;
