@@ -27,13 +27,11 @@
 }
 
 .btn-sign-in {
-  fa-sign-in,
-  fa-google-plus-square {
+  .fa {
     position: relative;
     padding-left: 10px;
   }
-  fa-sign-in::before,
-  fa-google-plus-square::before {
+  &:before {
     position: absolute;
     left: -9px;
     top: 0px;
