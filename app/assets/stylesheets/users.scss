@@ -30,12 +30,14 @@
   .fa {
     position: relative;
     padding-left: 10px;
+    
+    &:before {
+      position: absolute;
+      left: -9px;
+      top: 0px;
   }
-  &:before {
-    position: absolute;
-    left: -9px;
-    top: 0px;
   }
+  
 }
 
 @media (max-width: $mobile_width) {
