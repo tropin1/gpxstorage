@@ -26,19 +26,17 @@
   }
 }
 
-.btn-sign-in {
-  .fa {
-    position: relative;
-    padding-left: 10px;
-    
-    &:before {
-      position: absolute;
-      left: -9px;
-      top: 0px;
+.btn-sign-in > .fa {
+  position: relative;
+  padding-left: 10px;
+
+  &:before {
+    position: absolute;
+    left: -9px;
+    top: 0;
   }
-  }
-  
 }
+
 
 @media (max-width: $mobile_width) {
   .lib-support-list[data-type="user"] {
