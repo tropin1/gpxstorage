@@ -10,8 +10,6 @@
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
-/db/*
-/config/*
 !/log/.keep
 !/tmp/.keep
 /config/secrets.yml
